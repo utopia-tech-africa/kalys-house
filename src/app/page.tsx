@@ -1,7 +1,11 @@
+import Footer from "@/components/footer/footer";
+
 const Home = () => {
   return (
     <>
-      <div className="bg-black h-screen text-w">HOME</div>
+      <div className="text-white h-screen ">
+        <Footer />
+      </div>
     </>
   );
 };
