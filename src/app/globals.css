@@ -6,8 +6,8 @@
   --color-neutral-100: #e1e1e1;
   --color-neutral-500: #617677;
   --color-secondary-100: #d4e3ef;
-  --color-orange-color: #ff3300;
-  --color-orange-deep: #bb2600;
+  --color-primary-light: #ff3300;
+  --color-priamry-deep: #bb2600;
   --font-bebas: var(--font-bebas-neue);
   --font-poppins: var(--font-poppins);
 }
