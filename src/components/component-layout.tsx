@@ -10,7 +10,12 @@ export const ComponentLayout = ({
   className,
 }: ComponentLayoutProps) => {
   return (
-    <div className={cn("w-full px-4 md:px-10 lg:px-20", className)}>
+    <div
+      className={cn(
+        "max-w-[1440px] w-full px-4 md:px-10 lg:px-20 mx-auto",
+        className
+      )}
+    >
       {children}
     </div>
   );
