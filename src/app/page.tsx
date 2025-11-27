@@ -6,12 +6,13 @@ import Registration from "@/components/registration/registration";
 
 const Home = () => {
   return (
-    <main className="h-screen text-w text-white">
+    <>
       <Hero />
       <EventBrief />
       <Sponsors />
       <WhatDeyGoOn />
-    </main>
+    </>
   );
 };
+
 export default Home;
