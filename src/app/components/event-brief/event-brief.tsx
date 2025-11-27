@@ -4,7 +4,7 @@ import { Heading } from "@/components/texts";
 export const EventBrief = () => {
   return (
     <ComponentLayout className="py-18">
-      <Heading className="text-center ">
+      <Heading className="text-center">
         KalyJay’s House{" "}
         <span className="text-secondary leading-8 sm:leading-12">
           is a wild, non-stop 72-hour livestream party where your favorite{" "}

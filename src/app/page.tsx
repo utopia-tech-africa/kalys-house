@@ -5,12 +5,13 @@ import { WhatDeyGoOn } from "./components/what-dey-go-on/what-dey-go-on";
 
 const Home = () => {
   return (
-    <main className="h-screen text-w text-white">
+    <>
       <Hero />
       <EventBrief />
       <Sponsors />
       <WhatDeyGoOn />
-    </main>
+    </>
   );
 };
+
 export default Home;
