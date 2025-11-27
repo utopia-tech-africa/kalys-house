@@ -8,6 +8,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "../ui/textarea";
 
 const formSchema = z.object({
   name: z.string().min(2, "Full name is required"),
@@ -80,7 +81,7 @@ export const RegistrationForm = () => {
 
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label className="block text-sm text-neutral-200 normal-case!">
+          <label className="block text-sm text-neutral-200">
             Full name <span className="text-red-500">*</span>
           </label>
           <Input
@@ -98,7 +99,7 @@ export const RegistrationForm = () => {
 
         {/* Email */}
         <div>
-          <label className="block text-sm text-neutral-200 normal-case!">
+          <label className="block text-sm text-neutral-200">
             Email <span className="text-red-500">*</span>
           </label>
           <Input
@@ -117,7 +118,7 @@ export const RegistrationForm = () => {
 
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-medium text-neutral-200 normal-case!">
+            <label className="block text-sm font-medium text-neutral-200">
               Social Handle <span className="text-red-500">*</span>
             </label>
             <Input
@@ -134,24 +135,16 @@ export const RegistrationForm = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-neutral-200 normal-case!">
+            <label className="block text-sm font-medium text-neutral-200">
               Phone <span className="text-red-500">*</span>
             </label>
 
-            <div className="rounded-lg flex items-center p-6 h-9 w-full bg-transparent backdrop-blur-[20px] border border-neutral-700">
-              <Controller
-                name="phone"
-                control={form.control}
-                render={({ field }) => (
-                  <PhoneInput
-                    international
-                    defaultCountry="GH"
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={isSubmitting}
-                    className="w-full phone-input backdrop-blur-[20px]"
-                  />
-                )}
+            <div className="block text-sm font-medium text-neutral-200">
+              <Input
+                placeholder="+233 2222 222 22"
+                {...form.register("phone")}
+                className="backdrop-blur-[20px]"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -164,12 +157,11 @@ export const RegistrationForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-200 normal-case!">
+          <label className="block text-sm font-medium text-neutral-200">
             Reason for joining
           </label>
-          <textarea
+          <Textarea
             {...form.register("reason")}
-            placeholder="Tell us why you want to join..."
             className="w-full mt-2 min-h-[110px] rounded-xl p-4 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-400 border border-neutral-700 resize-none backdrop-blur-[20px]"
             disabled={isSubmitting}
           />

@@ -12,8 +12,8 @@ const Home = () => {
       <EventBrief />
       <Sponsors />
       <WhatDeyGoOn />
-      <Registration />
       <Schedule />
+      <Registration />
     </>
   );
 };
