@@ -3,7 +3,7 @@ import { Heading } from "@/components/texts";
 
 export const EventBrief = () => {
   return (
-    <ComponentLayout className="py-18">
+    <ComponentLayout>
       <Heading className="text-center">
         KalyJay’s House{" "}
         <span className="text-secondary leading-8 sm:leading-12">
