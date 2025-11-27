@@ -1,3 +1,4 @@
+import Footer from "@/components/footer/footer";
 import { EventBrief } from "./components/event-brief/event-brief";
 import { Hero } from "./components/hero/hero";
 import { Sponsors } from "./components/sponsors/sponsors";

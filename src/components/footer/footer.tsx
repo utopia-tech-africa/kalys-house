@@ -7,7 +7,7 @@ import { FooterImg } from "@/app/assets/img";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full overflow-hidden">
+    <footer className="relative w-full overflow-hidden bg-amber-300">
       <Image
         src={FooterImg}
         alt="footer image"
