@@ -48,10 +48,10 @@ export const Schedule = () => {
   ];
 
   return (
-    <ComponentLayout className="py-12 sm:py-16">
+    <ComponentLayout>
       <Heading>Schedule</Heading>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
         {events.map((event, i) => (
           <ScheduleCard
             key={i}

@@ -22,16 +22,16 @@ const Navbar = () => {
         </div>
 
         {/* Right: Join button */}
-        <div>
-          <Link
-            href="https://example.com"
+        <div className="flex items-center space-x-1 text-xl text-secondary p-1 rounded hover:bg-foreground/10 transition">
+          {/* <Link
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-1 text-xl text-secondary p-1 rounded hover:bg-foreground/10 transition"
-          >
-            <span>Join the house</span>
-            <ExternalLinkIcon />
-          </Link>
+            
+          > */}
+          <span>Join the house</span>
+          <ExternalLinkIcon />
+          {/* </Link> */}
         </div>
       </ComponentLayout>
     </nav>

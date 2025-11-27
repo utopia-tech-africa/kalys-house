@@ -28,7 +28,7 @@ export const WhatDeyGoOn = () => {
   ];
 
   return (
-    <div className="pl-4 sm:pl-12 md:pl-20 lg:pl-25 xl:pl-30 py-12 sm:py-16 ">
+    <div className="pl-4 sm:pl-12 md:pl-20 lg:pl-25 xl:pl-30 ">
       <Heading>What dey go on?</Heading>
 
       {/* Scrollable row */}
