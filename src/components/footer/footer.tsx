@@ -3,7 +3,7 @@ import { Copyright } from "./copyright";
 import { Join } from "./join";
 import { SiteMap } from "./site-map";
 import { Socials } from "./socials";
-import { FooterImg } from "@/app/assets/img";
+import { BackDropImg } from "@/app/assets/img";
 import { ComponentLayout } from "../component-layout";
 
 const Footer = () => {
@@ -11,7 +11,7 @@ const Footer = () => {
     <footer className=" w-full overflow-hidden">
       <ComponentLayout className="relative">
         <Image
-          src={FooterImg}
+          src={BackDropImg}
           alt="footer image"
           fill
           className="absolute inset-0 object-cover -z-20"
