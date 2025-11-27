@@ -5,6 +5,7 @@ import backdropImage2 from "./backdrop-img-2.webp";
 import mtnLogo from "./mtn-logo.png";
 import sponsorCardBg from "./sponsor-card-bg.webp";
 import whatDeyGoOnBannerImg from "./what-dey-go-on-banner-img.webp";
+import scheduleCardImg from "./schedule-card-img.webp";
 
 export {
   logo,
@@ -14,4 +15,5 @@ export {
   whatDeyGoOnBannerImg,
   backdropImg1,
   backdropImage2,
+  scheduleCardImg,
 };
