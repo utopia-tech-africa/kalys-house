@@ -20,7 +20,7 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         brand:
-          "text-[20px] text-white font-bebas bg-orange-color py-[10px] rounded-[8px] cursor-pointer",
+          "text-[20px] text-white font-bebas bg-[#BB2600] py-[10px] rounded-[8px] cursor-pointer",
       },
       size: {
         default: "text-[20px]",
