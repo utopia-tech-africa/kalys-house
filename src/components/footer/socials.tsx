@@ -11,12 +11,12 @@ export const Socials = () => {
     <div className="flex flex-col gap-2">
       <h3>LET&apos;S VIBE</h3>
       <p>
-        example@gmail.com <br />
+        info@kalyshouse.live <br />
         +233 12 345 6789
       </p>
       <div className="flex gap-3">
         <a
-          href=""
+          href="https://www.instagram.com/kalyshouse"
           target="_blank"
           rel="noreferrer"
           className="rounded p-3 border border-seconday-500"
@@ -24,7 +24,7 @@ export const Socials = () => {
           <FaInstagram className="text-white " />
         </a>
         <a
-          href="https://www.google.com"
+          href="https://x.com/kalyshouse"
           target="_blank"
           rel="noreferrer"
           className="rounded p-3 border border-seconday-500"
@@ -32,7 +32,7 @@ export const Socials = () => {
           <FaXTwitter className="text-white " />
         </a>
         <a
-          href="https://www.google.com"
+          href=""
           target="_blank"
           rel="noreferrer"
           className="rounded p-3 border border-seconday-500"
@@ -40,7 +40,7 @@ export const Socials = () => {
           <FaLinkedin className="text-white " />
         </a>
         <a
-          href="https://www.google.com"
+          href="https://youtube.com/@kalyshouse?si=lgIA9Bb4SmbYAz8N"
           target="_blank"
           rel="noreferrer"
           className="rounded p-3 border border-seconday-500"
@@ -48,7 +48,7 @@ export const Socials = () => {
           <FaYoutube className="text-white " />
         </a>
         <a
-          href="https://www.google.com"
+          href=""
           target="_blank"
           rel="noreferrer"
           className="rounded p-3 border border-seconday-500"

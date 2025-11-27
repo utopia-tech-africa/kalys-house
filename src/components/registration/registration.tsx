@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { RegistrationForm } from "./registration-form";
-import { backdropImage2 } from "@/assets/img";
+import { backdropImg2 } from "@/assets/img";
 
 const Registration = () => {
   return (
-    <div className="p-1 md:p-3 mb-4 relative w-full overflow-hidden">
+    <div className="p-1 md:p-3 mb-30 relative w-full overflow-hidden">
       <Image
-        src={backdropImage2}
+        src={backdropImg2}
         alt="kalys house backdrop"
         fill
         className="absolute inset-0 object-cover  -z-20"
