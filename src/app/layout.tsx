@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/nav/nav-bar";
+import Footer from "@/components/footer/footer";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
