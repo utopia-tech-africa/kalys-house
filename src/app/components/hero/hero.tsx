@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { HeroLoader } from "./components/hero-loader";
 
 export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(false);
-  const [loaderDone, setLoaderDone] = useState(false); // Track when loader finishes
+  const [muted, setMuted] = useState(true); // start muted to ensure autoplay
+  const [loaderDone, setLoaderDone] = useState(false);
 
   const handleVideoClick = () => {
     if (videoRef.current) {
@@ -15,6 +15,18 @@ export const Hero = () => {
     }
   };
 
+  // Play video programmatically when loader finishes
+  useEffect(() => {
+    if (loaderDone && videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Video playback failed:", error);
+        });
+      }
+    }
+  }, [loaderDone]);
+
   return (
     <section className="relative w-full h-dvh overflow-hidden cursor-pointer">
       {!loaderDone && <HeroLoader onComplete={() => setLoaderDone(true)} />}
@@ -22,18 +34,13 @@ export const Hero = () => {
       {/* Background Video */}
       <video
         ref={videoRef}
-        autoPlay={loaderDone} // only autoplay when loader is gone
         loop
         muted={muted}
         playsInline
         onClick={handleVideoClick}
         className="absolute top-0 left-0 w-full h-full object-cover"
-      >
-        <source
-          src="https://res.cloudinary.com/dl02aq6nt/video/upload/v1764253050/hero-bg-video_xtwq5b.mp4"
-          type="video/mp4"
-        />
-      </video>
+        src="https://res.cloudinary.com/dl02aq6nt/video/upload/v1764253050/hero-bg-video_xtwq5b.mp4"
+      />
 
       {/* Optional Dark Overlay */}
       <div className="absolute inset-0 bg-black/30 pointer-events-none" />
