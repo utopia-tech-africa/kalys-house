@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${bebasNeue.variable} ${poppins.variable} font-bebas antialiased bg-black text-white min-h-screen flex flex-col`}
+        className={`${bebasNeue.variable} ${poppins.variable} font-bebas antialiased bg-black text-white min-h-screen `}
       >
         <Navbar />
         <main className="flex-1">{children}</main>

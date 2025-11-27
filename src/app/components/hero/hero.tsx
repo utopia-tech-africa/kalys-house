@@ -1,25 +1,28 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { HeroLoader } from "./components/hero-loader";
 
 export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(false);
+  const [loaderDone, setLoaderDone] = useState(false); // Track when loader finishes
 
   const handleVideoClick = () => {
     if (videoRef.current) {
       videoRef.current.muted = !muted;
       setMuted((prev) => !prev);
-      console.log(muted);
     }
   };
 
   return (
     <section className="relative w-full h-dvh overflow-hidden cursor-pointer">
+      {!loaderDone && <HeroLoader onComplete={() => setLoaderDone(true)} />}
+
       {/* Background Video */}
       <video
         ref={videoRef}
-        autoPlay
+        autoPlay={loaderDone} // only autoplay when loader is gone
         loop
         muted={muted}
         playsInline
@@ -34,8 +37,6 @@ export const Hero = () => {
 
       {/* Optional Dark Overlay */}
       <div className="absolute inset-0 bg-black/30 pointer-events-none" />
-
-      {/* Hero Content */}
 
       {/* Small mute indicator bubble */}
       <div className="absolute bottom-6 right-6 z-20 bg-black/40 text-white px-3 py-1 rounded-full text-sm">
