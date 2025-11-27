@@ -1,3 +1,3 @@
-import FooterImg from "./footer-img.webp";
+import BackDropImg from "./footer-img.webp";
 
-export { FooterImg };
+export { BackDropImg };
