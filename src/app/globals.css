@@ -136,3 +136,8 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.phone-input input {
+  background: transparent !important;
+  backdrop-filter: blur(20px) !important;
+}
