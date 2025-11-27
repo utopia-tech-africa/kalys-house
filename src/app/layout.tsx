@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Poppins } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/nav/nav-bar";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
@@ -26,7 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bebasNeue.variable} ${poppins.variable} antialiased`}>
+      <body
+        className={`${bebasNeue.variable} ${poppins.variable} font-bebas antialiased relative bg-black`}
+      >
+        <Navbar />
         {children}
       </body>
     </html>
