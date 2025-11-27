@@ -1,4 +1,3 @@
-import Footer from "@/components/footer/footer";
 import { EventBrief } from "./components/event-brief/event-brief";
 import { Hero } from "./components/hero/hero";
 import { Sponsors } from "./components/sponsors/sponsors";
@@ -7,14 +6,12 @@ import Registration from "@/components/registration/registration";
 
 const Home = () => {
   return (
-    <>
-      <div className="text-white h-screen ">
-        <Hero />
-        <Sponsors />
-        <WhatDeyGoOn />
-        <Registration />
-      </div>
-    </>
+    <main className="h-screen text-w text-white">
+      <Hero />
+      <EventBrief />
+      <Sponsors />
+      <WhatDeyGoOn />
+    </main>
   );
 };
 export default Home;
