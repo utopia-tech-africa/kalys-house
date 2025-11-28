@@ -20,7 +20,6 @@ const Home = () => {
       <Views />
       <Registration />
       <Collaborate />
-    </>
     </section>
   );
 };
