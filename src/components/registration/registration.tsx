@@ -4,7 +4,10 @@ import { backdropImg2 } from "@/assets/img";
 
 const Registration = () => {
   return (
-    <div className="p-1 md:p-3 mb-30 relative w-full overflow-hidden">
+    <section
+      className="p-1 md:p-3 mb-30 relative w-full overflow-hidden scroll-mt-24"
+      id="registration-form"
+    >
       <Image
         src={backdropImg2}
         alt="kalys house backdrop"
@@ -19,7 +22,7 @@ const Registration = () => {
           <RegistrationForm />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
