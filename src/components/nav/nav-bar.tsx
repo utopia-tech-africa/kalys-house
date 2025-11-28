@@ -6,7 +6,7 @@ import { ExternalLinkIcon, Hamburger, Logo } from "@/assets/svg";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 w-full  backdrop-blur-3xl bg-gray-700/25 z-100">
+    <nav className="fixed top-0 w-full  backdrop-blur-3xl bg-neutral-500/25 z-100">
       <ComponentLayout className="p-1 flex items-center justify-between uppercase ">
         {/* Left: Menu */}
         <div className="flex items-center space-x-1 cursor-pointer">

@@ -8,6 +8,7 @@ import { Sponsors } from "./components/sponsors/sponsors";
 import { Views } from "./components/views/views";
 import { WhatDeyGoOn } from "./components/what-dey-go-on/what-dey-go-on";
 import { Collaborate } from "@/components";
+import { Highlights } from "./components/highlights/highlights";
 
 const Home = () => {
   return (
@@ -18,9 +19,9 @@ const Home = () => {
       <WhatDeyGoOn />
       <Schedule />
       <Views />
+      <Highlights />
       <Registration />
       <Collaborate />
-    </>
     </section>
   );
 };
