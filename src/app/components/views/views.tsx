@@ -15,7 +15,7 @@ export const Views = () => {
           #24HoursWithKaly6th December, 2024
         </p>
         <AnimatedNumber
-          value={9526}
+          value={882900}
           as={"p"}
           duration={30}
           className="text-8xl sm:text-9xl tracking-tight"
@@ -28,9 +28,9 @@ export const Views = () => {
           #24HoursWithKaly6th December, 2024
         </p>
         <AnimatedNumber
-          value={8146}
+          value={462000}
           as={"p"}
-          duration={28}
+          duration={30}
           className="text-8xl sm:text-9xl tracking-tight"
         />
         <p className="uppercase sm:text-6xl text-4xl text-center">Views</p>
