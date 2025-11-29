@@ -1,8 +1,8 @@
 export const HeroLoaderLogo = () => {
   return (
     <svg
-      width="503"
-      height="354"
+      width="fill"
+      height="fill"
       viewBox="0 0 503 354"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

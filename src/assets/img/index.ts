@@ -7,6 +7,7 @@ import sponsorCardBg from "./sponsor-card-bg.webp";
 import whatDeyGoOnBannerImg from "./what-dey-go-on-banner-img.webp";
 import scheduleCardImg from "./schedule-card-img.webp";
 import kalyjayImg from "./kalyjay-img.webp";
+import highlightTumbnailImg from "./highlight-tumbnail-img.webp";
 
 export {
   logo,
@@ -18,4 +19,5 @@ export {
   backdropImg2,
   scheduleCardImg,
   kalyjayImg,
+  highlightTumbnailImg,
 };
