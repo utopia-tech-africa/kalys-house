@@ -1,13 +1,20 @@
 import { About } from "./about";
 import { Follow } from "./follow";
 import { ComponentLayout } from "../component-layout";
-import { KalyJayImg } from "@/assets/svg/kalyjay-img";
+// import { KalyJayImg } from "@/assets/svg/kalyjay-img";
+import Image from "next/image";
+import { kalyjayImg } from "@/assets/img";
 
 export const Collaborate = () => {
   return (
     <div className="mb-30 w-full overflow-hidden relative flex justify-center items-center">
-      <KalyJayImg />
-
+      <Image
+        src={kalyjayImg}
+        height={500}
+        width={500}
+        alt="kalyjay collaborate banner"
+        className="w-full h-full object-cover"
+      />
       <ComponentLayout className="absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-between z-20">
         <About />
         <Follow />
