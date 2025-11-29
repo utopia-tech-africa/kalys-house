@@ -1,19 +1,12 @@
-import Image from "next/image";
-import { kalyjayImg } from "@/assets/img";
 import { About } from "./about";
 import { Follow } from "./follow";
 import { ComponentLayout } from "../component-layout";
+import { KalyJayImg } from "@/assets/svg/kalyjay-img";
 
 export const Collaborate = () => {
   return (
     <div className="mb-30 w-full overflow-hidden relative flex justify-center items-center">
-      {/* I Replaced the svg with the wepg file */}
-      <Image
-        src={kalyjayImg}
-        alt="KalyJay"
-        className="w-full h-auto object-cover"
-        priority
-      />
+      <KalyJayImg />
 
       <ComponentLayout className="absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-between z-20">
         <About />
