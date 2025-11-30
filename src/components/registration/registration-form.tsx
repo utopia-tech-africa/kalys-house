@@ -113,7 +113,7 @@ export const RegistrationForm = () => {
             )}
           </div>
 
-          {/* Date & Time */}
+          {/* Date and Time */}
 
           <div>
             <label className="block text-sm font-medium text-neutral-200">
