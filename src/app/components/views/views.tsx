@@ -5,7 +5,7 @@ import { Heading } from "@/components/texts";
 export const Views = () => {
   return (
     <ComponentLayout className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6 min-h-[234px]">
-      <Heading className="text-white">
+      <Heading className="text-white text-center md:text-start">
         The <span className="text-primary-light">numbers</span> don’t lie
       </Heading>
 
@@ -15,9 +15,9 @@ export const Views = () => {
           #24HoursWithKaly6th December, 2024
         </p>
         <AnimatedNumber
-          value={9526}
+          value={882900}
           as={"p"}
-          duration={30}
+          duration={2}
           className="text-8xl sm:text-9xl tracking-tight"
         />
         <p className="uppercase sm:text-6xl text-4xl text-center">Views</p>
@@ -28,9 +28,9 @@ export const Views = () => {
           #24HoursWithKaly6th December, 2024
         </p>
         <AnimatedNumber
-          value={8146}
+          value={462000}
           as={"p"}
-          duration={28}
+          duration={2}
           className="text-8xl sm:text-9xl tracking-tight"
         />
         <p className="uppercase sm:text-6xl text-4xl text-center">Views</p>

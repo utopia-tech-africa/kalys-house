@@ -5,8 +5,8 @@ import { backdropImg2 } from "@/assets/img";
 const Registration = () => {
   return (
     <section
+      className="p-1 md:p-3 mb-30 relative w-full overflow-hidden scroll-mt-24"
       id="registration-form"
-      className="p-1 md:p-3 mb-30 relative w-full overflow-hidden"
     >
       <Image
         src={backdropImg2}
