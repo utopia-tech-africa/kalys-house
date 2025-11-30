@@ -10,8 +10,8 @@ export const Collaborate = () => {
     <div className="mb-30 w-full overflow-hidden relative flex justify-center items-center">
       <Image
         src={kalyjayImg}
-        height={500}
-        width={500}
+        height={600}
+        width={600}
         alt="kalyjay collaborate banner"
         className="w-full h-full object-cover"
       />
