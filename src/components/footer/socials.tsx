@@ -12,7 +12,7 @@ export const Socials = () => {
       <h3>LET&apos;S VIBE</h3>
       <p>
         info@kalyshouse.live <br />
-        +233 12 345 6789
+        +233 59 179 9730
       </p>
       <div className="flex gap-3">
         <a

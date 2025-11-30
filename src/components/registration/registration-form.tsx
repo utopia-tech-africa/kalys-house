@@ -1,13 +1,17 @@
-"use client";
-
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import "react-phone-number-input/style.css";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "../ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
 
 const formSchema = z.object({
   name: z.string().min(2, "Full name is required"),
@@ -15,6 +19,7 @@ const formSchema = z.object({
   socialHandle: z.string().min(2, "Invalid social handle"),
   phone: z.string().min(6, "Enter a valid phone number"),
   reason: z.string().optional(),
+  datetime: z.date("Please select a valid date and time"),
 });
 
 export const RegistrationForm = () => {
@@ -29,9 +34,10 @@ export const RegistrationForm = () => {
     defaultValues: {
       name: "",
       email: "",
-      socialHandle: "",
       phone: "",
+      socialHandle: "",
       reason: "",
+      datetime: undefined,
     },
   });
 
@@ -68,17 +74,8 @@ export const RegistrationForm = () => {
 
   return (
     <div className=" text-white">
-      <div className="flex flex-col items-center justify-center">
-        <h2 className="text-[#ff5a24] tracking-[1px] text-center md:text-left font-bold text-3xl mb-2">
-          BE A PART OF THE EXPERIENCE
-        </h2>
-        <p className="font-poppins text-center text-sm mb-6 text-neutral-300">
-          Join KalyJay in the house and immerse yourself in <br />
-          the epic journey.
-        </p>
-      </div>
-
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {/* Full Name */}
         <div>
           <label className="block text-sm text-neutral-200">
             Full name <span className="text-red-500">*</span>
@@ -96,25 +93,122 @@ export const RegistrationForm = () => {
           )}
         </div>
 
-        {/* Email */}
-        <div>
-          <label className="block text-sm text-neutral-200">
-            Email <span className="text-red-500">*</span>
-          </label>
-          <Input
-            type="email"
-            placeholder="example@email.com"
-            {...form.register("email")}
-            className="backdrop-blur-[20px]"
-            disabled={isSubmitting}
-          />
-          {form.formState.errors.email && (
+        {/* Email + Datetime */}
+        <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-sm text-neutral-200">
+              Email <span className="text-red-500">*</span>
+            </label>
+            <Input
+              type="email"
+              placeholder="example@email.com"
+              {...form.register("email")}
+              className="backdrop-blur-[20px]"
+              disabled={isSubmitting}
+            />
+            {form.formState.errors.email && (
+              <p className="text-sm text-red-500 mt-1">
+                {String(form.formState.errors.email?.message)}
+              </p>
+            )}
+          </div>
+
+          {/* Date and Time */}
+
+          <div>
+            <label className="block text-sm font-medium text-neutral-200">
+              Select Date & Time <span className="text-red-500">*</span>
+            </label>
+
+            <Controller
+              control={form.control}
+              name="datetime"
+              render={({ field }) => (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Input
+                      placeholder="Select date & time"
+                      value={
+                        field.value
+                          ? `${format(field.value, "d MMMM, yyyy")} at ${format(
+                              field.value,
+                              "h:mm a"
+                            )}`
+                          : ""
+                      }
+                      className="backdrop-blur-[20px] text-start flex flex-col items-center"
+                    />
+                  </PopoverTrigger>
+
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={field.value ?? undefined}
+                      onSelect={(date) => {
+                        if (!date) return;
+
+                        // If time isn't set yet, default to 12:00 PM
+                        const newDate = new Date(date);
+
+                        if (!field.value) {
+                          newDate.setHours(12);
+                          newDate.setMinutes(0);
+                        } else {
+                          newDate.setHours(field.value.getHours());
+                          newDate.setMinutes(field.value.getMinutes());
+                        }
+
+                        field.onChange(newDate);
+                      }}
+                      disabled={(date) => {
+                        const start = new Date(2025, 11, 14);
+                        const end = new Date(2025, 11, 17);
+                        return date < start || date > end;
+                      }}
+                    />
+
+                    <div className="flex mt-2 p-2 gap-2">
+                      <input
+                        type="time"
+                        value={
+                          field.value && !isNaN(field.value.getTime())
+                            ? format(field.value, "HH:mm")
+                            : ""
+                        }
+                        onChange={(e) => {
+                          const raw = e.target.value;
+
+                          // If user cleared or pressed Enter causing "", ignore
+                          if (!raw) return;
+
+                          const [hours, minutes] = raw.split(":").map(Number);
+
+                          // If no date selected yet, do nothing (prevents invalid Date)
+                          if (!field.value || isNaN(field.value.getTime()))
+                            return;
+
+                          const updated = new Date(field.value);
+                          updated.setHours(hours);
+                          updated.setMinutes(minutes);
+
+                          field.onChange(updated);
+                        }}
+                        className="border rounded px-2 py-1 w-full"
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              )}
+            />
+          </div>
+          {form.formState.errors.datetime && (
             <p className="text-sm text-red-500 mt-1">
-              {String(form.formState.errors.email?.message)}
+              {String(form.formState.errors.datetime?.message)}
             </p>
           )}
         </div>
 
+        {/* Social Handle + Phone */}
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className="block text-sm font-medium text-neutral-200">
@@ -137,16 +231,12 @@ export const RegistrationForm = () => {
             <label className="block text-sm font-medium text-neutral-200">
               Phone <span className="text-red-500">*</span>
             </label>
-
-            <div className="block text-sm font-medium text-neutral-200">
-              <Input
-                placeholder="+233 2222 222 22"
-                {...form.register("phone")}
-                className="backdrop-blur-[20px]"
-                disabled={isSubmitting}
-              />
-            </div>
-
+            <Input
+              placeholder="+233 2222 222 22"
+              {...form.register("phone")}
+              className="backdrop-blur-[20px]"
+              disabled={isSubmitting}
+            />
             {form.formState.errors.phone && (
               <p className="text-sm text-red-500 mt-1">
                 {String(form.formState.errors.phone?.message)}
@@ -155,6 +245,7 @@ export const RegistrationForm = () => {
           </div>
         </div>
 
+        {/* Reason */}
         <div>
           <label className="block text-sm font-medium text-neutral-200">
             Reason for joining
@@ -171,6 +262,7 @@ export const RegistrationForm = () => {
           )}
         </div>
 
+        {/* Submit Button */}
         {submitMessage && (
           <div
             className={`p-3 rounded-md text-sm font-medium ${
@@ -183,7 +275,7 @@ export const RegistrationForm = () => {
           </div>
         )}
 
-        <Button type="submit" disabled={isSubmitting} className="">
+        <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
       </form>
