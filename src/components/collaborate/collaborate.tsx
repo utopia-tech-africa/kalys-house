@@ -1,30 +1,67 @@
-import { About } from "./about";
-import { Follow } from "./follow";
-import { ComponentLayout } from "../component-layout";
-// import { KalyJayImg } from "@/assets/svg/kalyjay-img";
+import { kalyjayImg, kalyjayImgMobile } from "@/assets/img";
 import Image from "next/image";
-import { kalyjayImg } from "@/assets/img";
+import { About } from "./about";
+import { CollaborateButton } from "./collaborate-button";
+import { FollowSection } from "./follow-section";
 
 export const Collaborate = () => {
   return (
     <section
       id="collaborate"
-      className="hidden md:block mb-30 w-full overflow-hidden relative justify-center items-center"
+      className="relative -mt-30 mb-20 w-full min-h-screen overflow-hidden bg-black"
     >
-      <Image
-        src={kalyjayImg}
-        height={600}
-        width={600}
-        alt="kalyjay collaborate banner"
-        className="w-full h-full object-cover"
-      />
-      <ComponentLayout className="absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-between z-20">
-        <About />
-        <Follow />
-      </ComponentLayout>
+      <div className="relative w-full h-full min-h-[703px]">
+        {/* desktop */}
+        <Image
+          src={kalyjayImg}
+          alt=""
+          className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+        />
 
-      <div className="flex flex-col items-center justify-center absolute top-[93%] left-1/2 transform -translate-x-1/2 rounded-xl -translate-y-1/2 z-20 bg-[linear-gradient(90deg,#FF3401_0%,#991F01_100%)] py-3 px-10">
-        <button className="text-[32px]">COLLABORATE WITH ME</button>
+        {/* mobile */}
+
+        <Image
+          src={kalyjayImgMobile}
+          alt=""
+          className="block lg:hidden absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* button */}
+        <div
+          className="
+          absolute 
+          left-1/2 -translate-x-1/2 
+          z-20
+          top-[94%]      /* mobile position */
+          md:top-[92%]   /* tablet */
+          lg:top-[88%]   /* desktop */
+        "
+        >
+          <CollaborateButton />
+        </div>
+      </div>
+
+      {/* other content */}
+      <div className="absolute top-0 left-0 w-full h-full">
+        {/* mobile */}
+        <div className="md:hidden flex justify-between px-4 pt-[31px]">
+          <div className="w-[161px]">
+            <About />
+          </div>
+          <div className="w-[88px]">
+            <FollowSection />
+          </div>
+        </div>
+
+        {/* desktop */}
+        <div className="hidden md:block">
+          <div className="absolute left-20 top-80">
+            <About />
+          </div>
+          <div className="absolute right-20 lg:right-[193px] top-80">
+            <FollowSection />
+          </div>
+        </div>
       </div>
     </section>
   );
