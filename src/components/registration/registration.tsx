@@ -17,6 +17,15 @@ const Registration = () => {
 
       <div className="absolute md:inset-0 md:bg-black/10 -z-10" />
 
+      <div className="flex flex-col items-center justify-center ">
+        <h1 className="text-primary-light text-[40px]">
+          BE A PART OF THE EXPERIENCE
+        </h1>
+        <p className="text-sm text-white font-poppins mb-6">
+          Join KalyJay in the house and immerse yourself in the epic journey.
+        </p>
+      </div>
+
       <div className="relative z-10 inset-0 flex items-center justify-center lg:justify-end px-6 md:px-16">
         <div className="w-full h-full max-w-[522px]">
           <RegistrationForm />
