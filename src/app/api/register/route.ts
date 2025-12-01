@@ -1,10 +1,14 @@
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { format } from "date-fns";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
+  // Lazy init — safe for build
+  const resend = new Resend(process.env.RESEND_API_KEY!);
+
   const { name, email, datetime, phone, socialHandle, reason } =
     await request.json();
 
