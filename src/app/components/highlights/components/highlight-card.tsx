@@ -17,8 +17,19 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
   const [isActive, setIsActive] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
-  /* ------- Detect when card enters view -------- */
+  // Detect if device supports hover (desktop) or not (mobile/tablet)
+  const [isHoverDevice, setIsHoverDevice] = useState(true);
+
   useEffect(() => {
+    // Browsers expose hover capability through matchMedia
+    setIsHoverDevice(window.matchMedia("(hover: hover)").matches);
+  }, []);
+
+  /* ------- Detect when card enters view (used for mobile) -------- */
+  useEffect(() => {
+    // Only activate intersection observer on NON-hover devices
+    if (isHoverDevice) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -30,7 +41,7 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
 
     if (cardRef.current) observer.observe(cardRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [isHoverDevice]);
 
   /* ------- Play / Pause video when active -------- */
   useEffect(() => {
@@ -57,10 +68,11 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
   return (
     <div
       ref={cardRef}
-      onMouseEnter={() => setIsActive(true)}
-      onMouseLeave={() => setIsActive(false)}
       className="relative w-full h-[427px] rounded-xl overflow-hidden shrink-0 cursor-pointer"
       onClick={toggleMute}
+      // Desktop hover logic (ignored on mobile)
+      onMouseEnter={() => isHoverDevice && setIsActive(true)}
+      onMouseLeave={() => isHoverDevice && setIsActive(false)}
     >
       {/* Thumbnail */}
       <Image
