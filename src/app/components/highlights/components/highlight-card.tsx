@@ -4,10 +4,10 @@ import { ExternalLinkIcon } from "@/assets/svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { HighlightsQueryResult } from "../../../../../sanity.types";
+import { STATIC_HIGHLIGHT_SHAPE_QUERYResult } from "../../../../../sanity.types";
 
 interface HighlightCardProps {
-  highlight: HighlightsQueryResult[0];
+  highlight: STATIC_HIGHLIGHT_SHAPE_QUERYResult[0];
 }
 
 export const HighlightCard = ({ highlight }: HighlightCardProps) => {

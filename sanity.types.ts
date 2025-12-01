@@ -219,9 +219,9 @@ export type Slug = {
 export type AllSanitySchemaTypes = Highlight | SanityImageCrop | SanityImageHotspot | ScheduleItem | Update | Sponsor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/queries/highlightQuery.ts
-// Variable: highlightsQuery
-// Query: *[_type == "highlight"] | order(_createdAt desc){    _id,    title,      url,    "video": video.asset->url ,    "thumbnail": thumbnail.asset->url  }
-export type HighlightsQueryResult = Array<{
+// Variable: STATIC_HIGHLIGHT_SHAPE_QUERY
+// Query: *[_type == "highlight"] {      _id,      title,      url,      "video": video.asset->url,      "thumbnail": thumbnail.asset->url    }
+export type STATIC_HIGHLIGHT_SHAPE_QUERYResult = Array<{
   _id: string;
   title: string | null;
   url: string | null;
@@ -262,7 +262,7 @@ export type UpdatesQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"highlight\"] | order(_createdAt desc){\n    _id,\n    title,\n      url,\n    \"video\": video.asset->url ,\n    \"thumbnail\": thumbnail.asset->url\n  }": HighlightsQueryResult;
+    "\n    *[_type == \"highlight\"] {\n      _id,\n      title,\n      url,\n      \"video\": video.asset->url,\n      \"thumbnail\": thumbnail.asset->url\n    }\n  ": STATIC_HIGHLIGHT_SHAPE_QUERYResult;
     "\n    *[_type == \"scheduleItem\"] | order(time asc) {\n      _id,\n      title,\n      time,\n      \"imageUrl\": image.asset->url,\n      live\n    }\n  ": ScheduleQueryResult;
     "*[_type == \"sponsor\"]{\n        _id,\n        title,\n        \"imageUrl\": image.asset->url\n      }": SponsorsQueryResult;
     "\n    *[_type == \"update\"]{\n      _id,\n      title,\n      \"imageUrl\": image.asset->url\n    }\n  ": UpdatesQueryResult;
