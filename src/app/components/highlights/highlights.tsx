@@ -1,11 +1,35 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { ComponentLayout } from "@/components/component-layout";
 import { Heading } from "@/components/texts";
 import { HighlightCard } from "./components/highlight-card";
 import { Button } from "@/components/ui/button";
 import { fetchHighlights } from "@/lib/queries/highlightQuery";
 
-export const Highlights = async () => {
-  const highlights = await fetchHighlights();
+export const Highlights = () => {
+  const [highlights, setHighlights] = useState<any[]>([]);
+  const [offset, setOffset] = useState(0);
+
+  const initialLimit = 8;
+  const loadMoreLimit = 4;
+
+  // Load 8 highlights on mount
+  useEffect(() => {
+    loadInitial();
+  }, []);
+
+  const loadInitial = async () => {
+    const initialData = await fetchHighlights(initialLimit, 0);
+    setHighlights(initialData);
+    setOffset(initialLimit); // next batch starts AFTER the initial 8
+  };
+
+  const loadMore = async () => {
+    const moreData = await fetchHighlights(loadMoreLimit, offset);
+    setHighlights((prev) => [...prev, ...moreData]);
+    setOffset((prev) => prev + loadMoreLimit);
+  };
 
   return (
     <ComponentLayout>
@@ -28,7 +52,10 @@ export const Highlights = async () => {
             ))}
           </div>
 
-          <Button className="text-xl sm:text-2xl px-5 py-2.5 rounded w-fit lg:mt-35">
+          <Button
+            className="text-xl sm:text-2xl px-5 py-2.5 rounded w-fit lg:mt-35"
+            onClick={loadMore}
+          >
             DISCOVER MORE
           </Button>
         </div>
