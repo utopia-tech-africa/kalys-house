@@ -6,7 +6,10 @@ import { FollowSection } from "./follow-section";
 
 export const Collaborate = () => {
   return (
-    <section className="relative -mt-30 mb-20 w-full min-h-screen overflow-hidden bg-black">
+    <section
+      id="collaborate"
+      className="relative -mt-30 mb-20 w-full min-h-screen overflow-hidden bg-black"
+    >
       <div className="relative w-full h-full min-h-[703px]">
         {/* desktop */}
         <Image

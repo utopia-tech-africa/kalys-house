@@ -9,6 +9,7 @@ import scheduleCardImg from "./schedule-card-img.webp";
 import kalyjayImg from "./kalyjay-img.png";
 import kalyjayImgMobile from "./kalyjay-img-mobile.png";
 import highlightTumbnailImg from "./highlight-tumbnail-img.webp";
+import menuBg from "./menu-bg.webp";
 
 export {
   logo,
@@ -22,4 +23,5 @@ export {
   kalyjayImg,
   kalyjayImgMobile,
   highlightTumbnailImg,
+  menuBg,
 };

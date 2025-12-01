@@ -7,7 +7,8 @@ export const fetchSchedule = async () => {
       _id,
       title,
       time,
-      "imageUrl": image.asset->url
+      "imageUrl": image.asset->url,
+      live
     }
   `);
 

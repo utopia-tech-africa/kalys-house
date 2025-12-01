@@ -20,6 +20,18 @@ export type Highlight = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   video?: {
     asset?: {
       _ref: string;
@@ -33,6 +45,22 @@ export type Highlight = {
   url?: string;
 };
 
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type ScheduleItem = {
   _id: string;
   _type: "scheduleItem";
@@ -41,6 +69,7 @@ export type ScheduleItem = {
   _rev: string;
   title?: string;
   time?: string;
+  live?: boolean;
 };
 
 export type Update = {
@@ -62,22 +91,6 @@ export type Update = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type Sponsor = {
@@ -203,27 +216,28 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = Highlight | ScheduleItem | Update | SanityImageCrop | SanityImageHotspot | Sponsor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = Highlight | SanityImageCrop | SanityImageHotspot | ScheduleItem | Update | Sponsor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/queries/highlightQuery.ts
-// Variable: highlightsQuery
-// Query: *[_type == "highlight"] | order(_createdAt desc){    _id,    title,      url,    "video": video.asset->url ,    "thumbnail": thumbnail.asset->url  }
-export type HighlightsQueryResult = Array<{
+// Variable: STATIC_HIGHLIGHT_SHAPE_QUERY
+// Query: *[_type == "highlight"] {      _id,      title,      url,      "video": video.asset->url,      "thumbnail": thumbnail.asset->url    }
+export type STATIC_HIGHLIGHT_SHAPE_QUERYResult = Array<{
   _id: string;
   title: string | null;
   url: string | null;
   video: string | null;
-  thumbnail: null;
+  thumbnail: string | null;
 }>;
 
 // Source: ./src/lib/queries/scheduleQuery.ts
 // Variable: scheduleQuery
-// Query: *[_type == "scheduleItem"] | order(time asc) {      _id,      title,      time,      "imageUrl": image.asset->url    }
+// Query: *[_type == "scheduleItem"] | order(time asc) {      _id,      title,      time,      "imageUrl": image.asset->url,      live    }
 export type ScheduleQueryResult = Array<{
   _id: string;
   title: string | null;
   time: string | null;
   imageUrl: null;
+  live: boolean | null;
 }>;
 
 // Source: ./src/lib/queries/sponsorQuery.ts
@@ -248,8 +262,8 @@ export type UpdatesQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"highlight\"] | order(_createdAt desc){\n    _id,\n    title,\n      url,\n    \"video\": video.asset->url ,\n    \"thumbnail\": thumbnail.asset->url\n  }": HighlightsQueryResult;
-    "\n    *[_type == \"scheduleItem\"] | order(time asc) {\n      _id,\n      title,\n      time,\n      \"imageUrl\": image.asset->url\n    }\n  ": ScheduleQueryResult;
+    "\n    *[_type == \"highlight\"] {\n      _id,\n      title,\n      url,\n      \"video\": video.asset->url,\n      \"thumbnail\": thumbnail.asset->url\n    }\n  ": STATIC_HIGHLIGHT_SHAPE_QUERYResult;
+    "\n    *[_type == \"scheduleItem\"] | order(time asc) {\n      _id,\n      title,\n      time,\n      \"imageUrl\": image.asset->url,\n      live\n    }\n  ": ScheduleQueryResult;
     "*[_type == \"sponsor\"]{\n        _id,\n        title,\n        \"imageUrl\": image.asset->url\n      }": SponsorsQueryResult;
     "\n    *[_type == \"update\"]{\n      _id,\n      title,\n      \"imageUrl\": image.asset->url\n    }\n  ": UpdatesQueryResult;
   }
