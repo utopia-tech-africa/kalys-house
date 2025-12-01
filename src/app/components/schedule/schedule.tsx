@@ -8,13 +8,15 @@ export const Schedule = async () => {
 
   return (
     <ComponentLayout>
-      <Heading>Schedule</Heading>
+      <section id="schedule">
+        <Heading>Schedule</Heading>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
-        {events.map((event) => (
-          <ScheduleCard key={event._id} event={event} />
-        ))}
-      </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+          {events.map((event) => (
+            <ScheduleCard key={event._id} event={event} />
+          ))}
+        </div>
+      </section>
     </ComponentLayout>
   );
 };

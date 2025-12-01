@@ -8,6 +8,7 @@ import whatDeyGoOnBannerImg from "./what-dey-go-on-banner-img.webp";
 import scheduleCardImg from "./schedule-card-img.webp";
 import kalyjayImg from "./kalyjay-img.webp";
 import highlightTumbnailImg from "./highlight-tumbnail-img.webp";
+import menuBg from "./menu-bg.webp";
 
 export {
   logo,
@@ -20,4 +21,5 @@ export {
   scheduleCardImg,
   kalyjayImg,
   highlightTumbnailImg,
+  menuBg,
 };

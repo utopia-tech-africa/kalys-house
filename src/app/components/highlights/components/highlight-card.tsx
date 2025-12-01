@@ -106,7 +106,8 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
 
       {/* Watch Button */}
       <Link
-        href={highlight.url || ""}
+        // href={highlight.url || ""}
+        href={""}
         target="_blank"
         rel="noopener noreferrer"
         className="absolute bottom-0 right-0 uppercase bg-black flex items-center gap-1 rounded-tl-xl px-3 py-2 border-t-[0.1px] border-neutral-400/50"
