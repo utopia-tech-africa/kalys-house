@@ -145,3 +145,6 @@
 html {
   scroll-behavior: smooth;
 }
+* {
+  scroll-margin-top: 60px;
+}

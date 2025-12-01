@@ -7,7 +7,10 @@ import { kalyjayImg } from "@/assets/img";
 
 export const Collaborate = () => {
   return (
-    <section className="hidden md:block mb-30 w-full overflow-hidden relative justify-center items-center">
+    <section
+      id="collaborate"
+      className="hidden md:block mb-30 w-full overflow-hidden relative justify-center items-center"
+    >
       <Image
         src={kalyjayImg}
         height={600}
