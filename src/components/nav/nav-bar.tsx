@@ -22,7 +22,6 @@ const Navbar = () => {
         </div>
 
         {/* Right: Join button */}
-
         <Link
           href="#registration-form"
           className="flex items-center space-x-1 text-xl text-secondary p-1 rounded hover:bg-foreground/10 transition"

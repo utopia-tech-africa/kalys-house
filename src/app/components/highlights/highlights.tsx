@@ -2,51 +2,10 @@ import { ComponentLayout } from "@/components/component-layout";
 import { Heading } from "@/components/texts";
 import { HighlightCard } from "./components/highlight-card";
 import { Button } from "@/components/ui/button";
-import { highlightTumbnailImg } from "@/assets/img";
+import { fetchHighlights } from "@/lib/queries/highlightQuery";
 
-export const Highlights = () => {
-  const cards = [
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 1",
-    },
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 2",
-    },
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 3",
-    },
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 4",
-    },
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 1",
-    },
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 2",
-    },
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 3",
-    },
-    {
-      thumbnail: highlightTumbnailImg,
-      videoUrl: "https://youtube.com",
-      title: "Sample Highlight 4",
-    },
-  ];
+export const Highlights = async () => {
+  const highlights = await fetchHighlights();
 
   return (
     <ComponentLayout>
@@ -56,18 +15,14 @@ export const Highlights = () => {
 
       <div className="flex flex-col items-center w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10 w-full place-items-center">
-          {cards.map((c, index) => (
+          {highlights.map((highlight, index) => (
             <div
-              key={index}
+              key={highlight._id}
               className={`${
                 index % 2 === 1 ? "lg:translate-y-[89px]" : ""
               } w-full`}
             >
-              <HighlightCard
-                thumbnail={c.thumbnail}
-                videoUrl={c.videoUrl}
-                title={c.title}
-              />
+              <HighlightCard highlight={highlight} />
             </div>
           ))}
         </div>

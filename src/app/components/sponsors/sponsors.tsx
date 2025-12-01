@@ -1,19 +1,14 @@
 import { Heading } from "@/components/texts";
-import { cocacolaLogo, mtnLogo } from "@/assets/img";
 import MovingCards from "./components/moving-cards";
+import { fetchSponsors } from "@/lib/queries/sponsorQuery";
 
-const cards = [
-  { id: 1, imageUrl: cocacolaLogo },
-  { id: 2, imageUrl: mtnLogo },
-  { id: 3, imageUrl: cocacolaLogo },
-  { id: 4, imageUrl: mtnLogo },
-];
+export const Sponsors = async () => {
+  const sponsors = await fetchSponsors();
 
-export const Sponsors = () => {
   return (
     <div className="space-y-4">
-      <Heading className="text-center ">Sponsors & partners</Heading>
-      <MovingCards cards={cards} />
+      <Heading className="text-center">Sponsors & Partners</Heading>
+      <MovingCards cards={sponsors} />;
     </div>
   );
 };
