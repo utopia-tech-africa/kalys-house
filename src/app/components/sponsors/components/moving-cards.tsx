@@ -4,18 +4,13 @@ import { useAnimationFrame } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
 import { useRef, useState } from "react";
 import { sponsorCardBg } from "@/assets/img";
-
-interface Card {
-  id: number;
-  imageUrl: string | StaticImageData;
-  title?: string;
-}
-
-interface MovingCardsProps {
-  cards: Card[];
-}
+import { SponsorsQueryResult } from "../../../../../sanity.types";
 
 const CARD_WIDTH = 243.2 + 24; // card width + margin (p-12 + mr-6)
+
+type MovingCardsProps = {
+  cards: SponsorsQueryResult;
+};
 
 export default function MovingCards({ cards }: MovingCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -72,7 +67,7 @@ export default function MovingCards({ cards }: MovingCardsProps) {
             className="absolute top-0 flex-none flex items-center justify-center h-40 w-[243.2px] p-12 mr-2"
           >
             <Image
-              src={card.imageUrl}
+              src={card.imageUrl || ""}
               alt={card.title || ""}
               width={243}
               height={64}
