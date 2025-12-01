@@ -68,7 +68,7 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
   return (
     <div
       ref={cardRef}
-      className="relative w-full h-[427px] rounded-xl overflow-hidden shrink-0 cursor-pointer"
+      className="relative w-full h-[427px] rounded-xl overflow-hidden shrink-0 cursor-pointer group"
       onClick={toggleMute}
       // Desktop hover logic (ignored on mobile)
       onMouseEnter={() => isHoverDevice && setIsActive(true)}
@@ -79,7 +79,7 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
         src={highlight.thumbnail || ""}
         alt={highlight.title || ""}
         fill
-        className="object-cover w-full transition-all duration-300 hover:scale-110"
+        className="object-cover w-full transition-all duration-300 hover:scale-110 "
         /* ///////////////////Uncomment "style" later////////////////////////////////////////////////////// */
         // style={{ opacity: isActive ? 0 : 1 }}
       />
@@ -105,7 +105,7 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
       )} */}
 
       {/* Bottom gradient */}
-      <div className="absolute bottom-0 left-0 w-full h-[35%] bg-linear-to-t from-black via-black/70 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-[35%] bg-linear-to-t from-black/70 via-black/60 to-transparent" />
 
       {/* Watch Button */}
       <Link
@@ -113,9 +113,22 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
         href={""}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute bottom-0 right-0 uppercase bg-black flex items-center gap-1 rounded-tl-xl px-3 py-2 border-t-[0.1px] border-neutral-400/50"
+        className="absolute -bottom-1 -right-1 uppercase bg-black flex items-center gap-1 rounded-tl-xl px-3 py-2 border-r-[0.1px] border-t-[0.1px] border-neutral-400/30 rounded-br-2xl transition"
       >
-        Watch Video <ExternalLinkIcon />
+        <span>Watch Video</span>
+
+        {/* Animated icon container */}
+        <div className="relative w-4 h-5 overflow-hidden ">
+          {/* Icon 1 (initial) */}
+          <div className="absolute inset-0 transition-transform duration-300 group-hover:-translate-y-full">
+            <ExternalLinkIcon />
+          </div>
+
+          {/* Icon 2 (slides up on hover) */}
+          <div className="absolute inset-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+            <ExternalLinkIcon />
+          </div>
+        </div>
       </Link>
     </div>
   );

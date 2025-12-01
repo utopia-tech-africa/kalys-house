@@ -10,26 +10,41 @@ import { fetchHighlights } from "@/lib/queries/highlightQuery";
 export const Highlights = () => {
   const [highlights, setHighlights] = useState<any[]>([]);
   const [offset, setOffset] = useState(0);
+  const [total, setTotal] = useState(0); // <-- total document count
 
   const initialLimit = 8;
   const loadMoreLimit = 4;
 
-  // Load 8 highlights on mount
+  /* -----------------------------
+    Load first 8 highlights on mount
+  ------------------------------ */
   useEffect(() => {
     loadInitial();
   }, []);
 
   const loadInitial = async () => {
-    const initialData = await fetchHighlights(initialLimit, 0);
-    setHighlights(initialData);
-    setOffset(initialLimit); // next batch starts AFTER the initial 8
+    const { data, total } = await fetchHighlights(initialLimit, 0);
+
+    setHighlights(data);
+    setTotal(total); // <-- save total count
+    setOffset(initialLimit); // next batch after initial 8
   };
 
+  /* -----------------------------
+    Load more highlights
+  ------------------------------ */
   const loadMore = async () => {
-    const moreData = await fetchHighlights(loadMoreLimit, offset);
+    const { data: moreData } = await fetchHighlights(loadMoreLimit, offset);
+
     setHighlights((prev) => [...prev, ...moreData]);
     setOffset((prev) => prev + loadMoreLimit);
   };
+
+  /* -----------------------------
+    Compute disable state
+    Disable when loaded >= total
+  ------------------------------ */
+  const isOutOfHighlights = highlights.length >= total;
 
   return (
     <ComponentLayout>
@@ -52,10 +67,13 @@ export const Highlights = () => {
             ))}
           </div>
 
+          {/* Load More Button */}
           <Button
             className="text-xl sm:text-2xl px-5 py-2.5 rounded w-fit lg:mt-35"
             onClick={loadMore}
+            disabled={isOutOfHighlights} // <-- disable here
           >
+            {" "}
             DISCOVER MORE
           </Button>
         </div>

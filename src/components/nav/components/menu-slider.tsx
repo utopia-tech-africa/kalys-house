@@ -25,7 +25,7 @@ export const MenuSlider = ({ open, onClose }: MenuSliderProps) => {
       {/* Background Overlay (fade-in) */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[99]"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-99"
           onClick={onClose}
         />
       )}
@@ -35,7 +35,7 @@ export const MenuSlider = ({ open, onClose }: MenuSliderProps) => {
         initial={{ x: "-100%" }}
         animate={{ x: open ? 0 : "-100%" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="fixed inset-0 z-[100] text-white"
+        className="fixed inset-0 z-100 text-white"
       >
         {/* Background Image */}
         <div className="absolute inset-0 -z-10">
@@ -59,11 +59,22 @@ export const MenuSlider = ({ open, onClose }: MenuSliderProps) => {
 
           <Link
             href="#registration-form"
-            className="flex items-center space-x-1 text-xl uppercase px-4 py-2 rounded-md   hover:bg-black/50 transition"
-            onClick={onClose}
+            className="flex items-center space-x-1 text-xl text-secondary p-1 rounded hover:bg-foreground/10 transition group "
           >
-            <span>Join the House</span>
-            <ExternalLinkIcon />
+            <span>Join the house</span>
+
+            {/* Animated icon container */}
+            <div className="relative w-4 h-5 overflow-hidden ">
+              {/* Icon 1 (initial) */}
+              <div className="absolute inset-0 transition-transform duration-300 group-hover:-translate-y-full">
+                <ExternalLinkIcon />
+              </div>
+
+              {/* Icon 2 (slides up on hover) */}
+              <div className="absolute inset-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                <ExternalLinkIcon />
+              </div>
+            </div>
           </Link>
         </div>
 
