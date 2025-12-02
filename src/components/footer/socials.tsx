@@ -1,7 +1,6 @@
 import {
   FaFacebook,
   FaInstagram,
-  FaLinkedin,
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
@@ -30,14 +29,6 @@ export const Socials = () => {
           className="rounded p-3 border border-seconday-500"
         >
           <FaXTwitter className="text-white " />
-        </a>
-        <a
-          href=""
-          target="_blank"
-          rel="noreferrer"
-          className="rounded p-3 border border-seconday-500"
-        >
-          <FaLinkedin className="text-white " />
         </a>
         <a
           href="https://youtube.com/@kalyshouse?si=lgIA9Bb4SmbYAz8N"
