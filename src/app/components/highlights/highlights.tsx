@@ -69,11 +69,10 @@ export const Highlights = () => {
 
           {/* Load More Button */}
           <Button
-            className="text-xl sm:text-2xl px-5 py-2.5 rounded w-fit lg:mt-35"
+            className="text-xl sm:text-2xl px-5 py-2.5 rounded w-fit mt-10 lg:mt-35"
             onClick={loadMore}
             disabled={isOutOfHighlights} // <-- disable here
           >
-            {" "}
             DISCOVER MORE
           </Button>
         </div>
