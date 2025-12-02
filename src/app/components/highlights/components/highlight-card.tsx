@@ -108,6 +108,18 @@ export const HighlightCard = ({ highlight }: HighlightCardProps) => {
       <div className="absolute bottom-0 left-0 w-full h-[35%] bg-linear-to-t from-black/70 via-black/60 to-transparent" />
 
       {/* Watch Button */}
+      <div
+        rel="noopener noreferrer"
+        className="absolute -bottom-1 -right-1 uppercase bg-black flex items-center gap-1 rounded-tl-xl px-3 py-2 border-l-[0.1px] border-t-[0.1px] border-neutral-400/30 rounded-br-2xl transition"
+      >
+        <span className="w-20"></span>
+
+        <div className="relative w-4 h-5 overflow-hidden ">
+          <div className="absolute inset-0 transition-transform duration-300 group-hover:-translate-y-full"></div>
+          <div className="absolute inset-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0"></div>
+        </div>
+      </div>
+
       {/* ///////////////////Uncomment "Watch Video Button" later////////////////////////////////////////////////////// */}
       {/* <Link
         href={highlight.url || ""}
