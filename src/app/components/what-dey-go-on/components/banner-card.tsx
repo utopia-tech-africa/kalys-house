@@ -16,7 +16,7 @@ export const BannerCard = ({ update }: BannerCardProps) => {
       />
 
       {/* Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-[30%] bg-linear-to-t from-black via-black to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-[30%] bg-linear-to-t from-black/70 via-black/60 to-transparent" />
 
       {/* Title */}
       <div className="absolute bottom-3 left-3 right-3 text-white tracking-wide text-3xl uppercase text-wrap leading-8">
