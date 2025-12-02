@@ -8,6 +8,21 @@ export const Hero = () => {
   const [muted, setMuted] = useState(true); // start muted to ensure autoplay
   const [loaderDone, setLoaderDone] = useState(false);
 
+  useEffect(() => {
+    if (!loaderDone) {
+      // Disable scroll
+      document.body.style.overflow = "hidden";
+    } else {
+      // Re-enable scroll
+      document.body.style.overflow = "";
+    }
+
+    // Cleanup (in case component unmounts)
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [loaderDone]);
+
   const handleVideoClick = () => {
     if (videoRef.current) {
       videoRef.current.muted = !muted;
