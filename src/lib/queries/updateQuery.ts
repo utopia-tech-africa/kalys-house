@@ -3,10 +3,11 @@ import { defineQuery } from "next-sanity";
 
 export const fetchUpdates = async () => {
   const updatesQuery = defineQuery(`
-    *[_type == "update"]{
+    *[_type == "update"] | order(_createdAt desc){
       _id,
       title,
-      "imageUrl": image.asset->url
+      "imageUrl": image.asset->url,
+      _createdAt
     }
   `);
 
