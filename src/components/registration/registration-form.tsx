@@ -7,21 +7,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "../ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
+
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { format } from "date-fns";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { generateEventDates, generateEventSlots } from "@/lib/utils";
+
+// Utility functions for generating dates and time slots
 
 const formSchema = z.object({
   name: z.string().min(2, "Full name is required"),
   email: z.string().email("Invalid email address"),
   socialHandle: z.string().min(2, "Invalid social handle"),
   phone: z.string().min(6, "Enter a valid phone number"),
+  day: z.string().min(1, "Please select a day"),
+  time: z.string().min(1, "Please select a time"),
   reason: z.string().optional(),
-  datetime: z.date("Please select a valid date and time"),
 });
 
 export const RegistrationForm = () => {
@@ -38,8 +43,9 @@ export const RegistrationForm = () => {
       email: "",
       phone: "",
       socialHandle: "",
+      day: "",
+      time: "",
       reason: "",
-      datetime: undefined,
     },
   });
 
@@ -95,119 +101,86 @@ export const RegistrationForm = () => {
           )}
         </div>
 
-        {/* Email + Datetime */}
-        <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-3">
+        {/* Email */}
+        <div>
+          <label className="block text-sm text-neutral-200">
+            Email <span className="text-red-500">*</span>
+          </label>
+          <Input
+            type="email"
+            placeholder="example@email.com"
+            {...form.register("email")}
+            className="backdrop-blur-[20px]"
+            disabled={isSubmitting}
+          />
+          {form.formState.errors.email && (
+            <p className="text-sm text-red-500 mt-1">
+              {String(form.formState.errors.email?.message)}
+            </p>
+          )}
+        </div>
+
+        {/* Day and Time Side by Side */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {/* Day */}
           <div>
-            <label className="block text-sm text-neutral-200">
-              Email <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-neutral-200">
+              Select Day <span className="text-red-500">*</span>
             </label>
-            <Input
-              type="email"
-              placeholder="example@email.com"
-              {...form.register("email")}
-              className="backdrop-blur-[20px]"
-              disabled={isSubmitting}
+            <Controller
+              control={form.control}
+              name="day"
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} disabled={isSubmitting}>
+                  <SelectTrigger className="h-9 w-full rounded-lg p-4 border border-[#D9DBDB33] bg-white/20 text-base backdrop-blur-[20px]">
+                    <SelectValue placeholder="Select a day" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {generateEventDates().map((day) => (
+                      <SelectItem key={day} value={day}>
+                        {day}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             />
-            {form.formState.errors.email && (
+            {form.formState.errors.day && (
               <p className="text-sm text-red-500 mt-1">
-                {String(form.formState.errors.email?.message)}
+                {String(form.formState.errors.day?.message)}
               </p>
             )}
           </div>
 
-          {/* Date and Time */}
-
+          {/* Time */}
           <div>
             <label className="block text-sm font-medium text-neutral-200">
-              Select Date & Time <span className="text-red-500">*</span>
+              Select Time <span className="text-red-500">*</span>
             </label>
-
             <Controller
               control={form.control}
-              name="datetime"
+              name="time"
               render={({ field }) => (
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Input
-                      placeholder="Select date & time"
-                      value={
-                        field.value
-                          ? `${format(field.value, "d MMMM, yyyy")} at ${format(
-                              field.value,
-                              "h:mm a"
-                            )}`
-                          : ""
-                      }
-                      className="backdrop-blur-[20px] text-start flex flex-col items-center"
-                    />
-                  </PopoverTrigger>
-
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={field.value ?? undefined}
-                      onSelect={(date) => {
-                        if (!date) return;
-
-                        // If time isn't set yet, default to 12:00 PM
-                        const newDate = new Date(date);
-
-                        if (!field.value) {
-                          newDate.setHours(12);
-                          newDate.setMinutes(0);
-                        } else {
-                          newDate.setHours(field.value.getHours());
-                          newDate.setMinutes(field.value.getMinutes());
-                        }
-
-                        field.onChange(newDate);
-                      }}
-                      disabled={(date) => {
-                        const start = new Date(2025, 11, 14);
-                        const end = new Date(2025, 11, 17);
-                        return date < start || date > end;
-                      }}
-                    />
-
-                    <div className="flex mt-2 p-2 gap-2">
-                      <input
-                        type="time"
-                        value={
-                          field.value && !isNaN(field.value.getTime())
-                            ? format(field.value, "HH:mm")
-                            : ""
-                        }
-                        onChange={(e) => {
-                          const raw = e.target.value;
-
-                          // If user cleared or pressed Enter causing "", ignore
-                          if (!raw) return;
-
-                          const [hours, minutes] = raw.split(":").map(Number);
-
-                          // If no date selected yet, do nothing (prevents invalid Date)
-                          if (!field.value || isNaN(field.value.getTime()))
-                            return;
-
-                          const updated = new Date(field.value);
-                          updated.setHours(hours);
-                          updated.setMinutes(minutes);
-
-                          field.onChange(updated);
-                        }}
-                        className="border rounded px-2 py-1 w-full"
-                      />
-                    </div>
-                  </PopoverContent>
-                </Popover>
+                <Select onValueChange={field.onChange} disabled={isSubmitting}>
+                  <SelectTrigger className="h-9 w-full rounded-lg p-4 border border-[#D9DBDB33] bg-white/20 text-base backdrop-blur-[20px]">
+                    <SelectValue placeholder="Select a time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {generateEventSlots().map((slot) => (
+                      <SelectItem key={slot} value={slot}>
+                        {slot}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               )}
             />
+            {form.formState.errors.time && (
+              <p className="text-sm text-red-500 mt-1">
+                {String(form.formState.errors.time?.message)}
+              </p>
+            )}
           </div>
-          {form.formState.errors.datetime && (
-            <p className="text-sm text-red-500 mt-1">
-              {String(form.formState.errors.datetime?.message)}
-            </p>
-          )}
         </div>
 
         {/* Social Handle + Phone */}
