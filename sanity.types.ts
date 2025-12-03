@@ -13,6 +13,49 @@
  */
 
 // Source: schema.json
+export type StreamingChannel = {
+  _id: string;
+  _type: "streamingChannel";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  platform?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  name?: string;
+  streamUrl?: string;
+  embedUrl?: string;
+  description?: string;
+  isActive?: boolean;
+  order?: number;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type Highlight = {
   _id: string;
   _type: "highlight";
@@ -43,22 +86,6 @@ export type Highlight = {
     _type: "file";
   };
   url?: string;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type ScheduleItem = {
@@ -216,7 +243,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = Highlight | SanityImageCrop | SanityImageHotspot | ScheduleItem | Update | Sponsor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = StreamingChannel | SanityImageCrop | SanityImageHotspot | Highlight | ScheduleItem | Update | Sponsor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/queries/highlightQuery.ts
 // Variable: STATIC_HIGHLIGHT_SHAPE_QUERY
@@ -251,11 +278,12 @@ export type SponsorsQueryResult = Array<{
 
 // Source: ./src/lib/queries/updateQuery.ts
 // Variable: updatesQuery
-// Query: *[_type == "update"]{      _id,      title,      "imageUrl": image.asset->url    }
+// Query: *[_type == "update"] | order(_createdAt desc){      _id,      title,      "imageUrl": image.asset->url,      _createdAt    }
 export type UpdatesQueryResult = Array<{
   _id: string;
   title: string | null;
   imageUrl: string | null;
+  _createdAt: string;
 }>;
 
 // Query TypeMap
@@ -265,6 +293,6 @@ declare module "@sanity/client" {
     "\n    *[_type == \"highlight\"] {\n      _id,\n      title,\n      url,\n      \"video\": video.asset->url,\n      \"thumbnail\": thumbnail.asset->url\n    }\n  ": STATIC_HIGHLIGHT_SHAPE_QUERYResult;
     "\n    *[_type == \"scheduleItem\"] | order(time asc) {\n      _id,\n      title,\n      time,\n      \"imageUrl\": image.asset->url,\n      live\n    }\n  ": ScheduleQueryResult;
     "*[_type == \"sponsor\"]{\n        _id,\n        title,\n        \"imageUrl\": image.asset->url\n      }": SponsorsQueryResult;
-    "\n    *[_type == \"update\"]{\n      _id,\n      title,\n      \"imageUrl\": image.asset->url\n    }\n  ": UpdatesQueryResult;
+    "\n    *[_type == \"update\"] | order(_createdAt desc){\n      _id,\n      title,\n      \"imageUrl\": image.asset->url,\n      _createdAt\n    }\n  ": UpdatesQueryResult;
   }
 }
