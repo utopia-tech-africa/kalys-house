@@ -50,7 +50,7 @@ export const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
   return (
     <motion.div
       ref={loaderRef}
-      className="absolute inset-0 z-101 bg-red-600 flex flex-col justify-between overflow-hidden py-4 "
+      className="absolute inset-0 z-101 bg-priamry-deep flex flex-col justify-between overflow-hidden py-4 "
       initial={{ y: 0 }}
     >
       <div className="flex flex-col justify-evenly items-center flex-1 invert-100">
