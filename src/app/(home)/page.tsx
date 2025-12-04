@@ -7,7 +7,7 @@ import { Views } from "../components/views/views";
 import { WhatDeyGoOn } from "../components/what-dey-go-on/what-dey-go-on";
 import { Collaborate } from "@/components";
 import { Highlights } from "../components/highlights/highlights";
-import { StreamingHero } from "../components/streaming-hero/streaming-hero";
+// import { StreamingHero } from "../components/streaming-hero/streaming-hero";
 
 const Home = () => {
   return (
