@@ -10,6 +10,9 @@ import kalyjayImg from "./kalyjay-img.png";
 import kalyjayImgMobile from "./kalyjay-img-mobile.png";
 import highlightTumbnailImg from "./highlight-tumbnail-img.webp";
 import menuBg from "./menu-bg.webp";
+import pluginHeroLogo from "./plugin-hero-logo.png";
+import rebirthHeroLogo from "./rebirth-hero-logo.png";
+import kalysHouseHeroLogo from "./kalys-house-hero-logo.png";
 
 export {
   logo,
@@ -24,4 +27,7 @@ export {
   kalyjayImgMobile,
   highlightTumbnailImg,
   menuBg,
+  pluginHeroLogo,
+  rebirthHeroLogo,
+  kalysHouseHeroLogo,
 };
