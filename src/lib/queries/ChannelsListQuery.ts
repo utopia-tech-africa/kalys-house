@@ -11,6 +11,7 @@ export const fetchChannelsList = async () => {
     }
   },
       name,
+      _id,
       streamUrl,
       embedUrl,
       isActive,

@@ -247,7 +247,7 @@ export type AllSanitySchemaTypes = StreamingChannel | SanityImageCrop | SanityIm
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/queries/ChannelsListQuery.ts
 // Variable: channelsListQuery
-// Query: *[_type == "streamingChannel"]{      platform,      logo{    asset->{      _id,      url    }  },      name,      streamUrl,      embedUrl,      isActive,      order             }
+// Query: *[_type == "streamingChannel"]{      platform,      logo{    asset->{      _id,      url    }  },      name,      _id,      streamUrl,      embedUrl,      isActive,      order             }
 export type ChannelsListQueryResult = Array<{
   platform: string | null;
   logo: {
@@ -257,6 +257,7 @@ export type ChannelsListQueryResult = Array<{
     } | null;
   } | null;
   name: string | null;
+  _id: string;
   streamUrl: string | null;
   embedUrl: string | null;
   isActive: boolean | null;
@@ -308,7 +309,7 @@ export type UpdatesQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"streamingChannel\"]{\n      platform,\n      logo{\n    asset->{\n      _id,\n      url\n    }\n  },\n      name,\n      streamUrl,\n      embedUrl,\n      isActive,\n      order     \n        }": ChannelsListQueryResult;
+    "*[_type == \"streamingChannel\"]{\n      platform,\n      logo{\n    asset->{\n      _id,\n      url\n    }\n  },\n      name,\n      _id,\n      streamUrl,\n      embedUrl,\n      isActive,\n      order     \n        }": ChannelsListQueryResult;
     "\n    *[_type == \"highlight\"] {\n      _id,\n      title,\n      url,\n      \"video\": video.asset->url,\n      \"thumbnail\": thumbnail.asset->url\n    }\n  ": STATIC_HIGHLIGHT_SHAPE_QUERYResult;
     "\n    *[_type == \"scheduleItem\"] | order(time asc) {\n      _id,\n      title,\n      time,\n      \"imageUrl\": image.asset->url,\n      live\n    }\n  ": ScheduleQueryResult;
     "*[_type == \"sponsor\"]{\n        _id,\n        title,\n        \"imageUrl\": image.asset->url\n      }": SponsorsQueryResult;
