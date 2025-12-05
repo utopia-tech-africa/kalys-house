@@ -1,15 +1,26 @@
 "use client";
 
-import { fetchChannelsList } from "@/lib/queries/ChannelsListQuery";
 import { ChannelsListQueryResult } from "../../../../../../sanity.types";
 import { ChannelsListCard } from "./channel-list-card";
 
-export const ChannelsList = async () => {
-  const channels: ChannelsListQueryResult | string = await fetchChannelsList();
+type Props = {
+  channels: ChannelsListQueryResult;
+  onSelectChannel: (channel: ChannelsListQueryResult[0]) => void;
+};
+
+export const ChannelsList = ({ channels, onSelectChannel }: Props) => {
+  const sorted = [...channels].sort(
+    (a, b) => (a.order ?? 999) - (b.order ?? 999)
+  );
+
   return (
     <div className="flex flex-wrap gap-4 items-center justify-center md:justify-start">
-      {channels?.map((channel) => (
-        <ChannelsListCard key={channel.name} {...channel} />
+      {sorted.map((channel) => (
+        <ChannelsListCard
+          key={channel._id}
+          channel={channel}
+          onSelect={onSelectChannel}
+        />
       ))}
     </div>
   );
