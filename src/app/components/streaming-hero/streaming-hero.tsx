@@ -24,9 +24,8 @@ export const StreamingHero = () => {
   }, []);
 
   const handleSelectChannel = (channel: ChannelsListQueryResult[0]) => {
-    setSelectedEmbedUrl(
-      channel.embedUrl ?? "https://www.youtube.com/embed/y-1_HCPPIS8"
-    );
+    setSelectedEmbedUrl(channel.embedUrl ?? "");
+    console.log("linkkkkkk    " + channel.embedUrl);
   };
 
   if (channels.length === 0) return null;
