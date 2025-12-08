@@ -13,49 +13,6 @@
  */
 
 // Source: schema.json
-export type StreamingChannel = {
-  _id: string;
-  _type: "streamingChannel";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  platform?: string;
-  logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  name?: string;
-  streamUrl?: string;
-  embedUrl?: string;
-  description?: string;
-  isActive?: boolean;
-  order?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
 export type Highlight = {
   _id: string;
   _type: "highlight";
@@ -86,6 +43,22 @@ export type Highlight = {
     _type: "file";
   };
   url?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type ScheduleItem = {
@@ -139,6 +112,48 @@ export type Sponsor = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+};
+
+export type HeroToggle = {
+  _id: string;
+  _type: "heroToggle";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  useStreamingHero?: boolean;
+  streamingChannel?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "streamingChannel";
+  };
+};
+
+export type StreamingChannel = {
+  _id: string;
+  _type: "streamingChannel";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  platform?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  name?: string;
+  streamUrl?: string;
+  embedUrl?: string;
+  description?: string;
+  isActive?: boolean;
+  order?: number;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -243,21 +258,16 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = StreamingChannel | SanityImageCrop | SanityImageHotspot | Highlight | ScheduleItem | Update | Sponsor | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = Highlight | SanityImageCrop | SanityImageHotspot | ScheduleItem | Update | Sponsor | HeroToggle | StreamingChannel | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/queries/ChannelsListQuery.ts
 // Variable: channelsListQuery
-// Query: *[_type == "streamingChannel"]{      platform,      logo{    asset->{      _id,      url    }  },      name,      _id,      streamUrl,      embedUrl,      isActive,      order             }
+// Query: *[_type == "streamingChannel"]{       _id,        platform,        name,        "logo": logo.asset->url,        streamUrl,        embedUrl,        isActive,        order           }
 export type ChannelsListQueryResult = Array<{
-  platform: string | null;
-  logo: {
-    asset: {
-      _id: string;
-      url: string | null;
-    } | null;
-  } | null;
-  name: string | null;
   _id: string;
+  platform: string | null;
+  name: string | null;
+  logo: string | null;
   streamUrl: string | null;
   embedUrl: string | null;
   isActive: boolean | null;
@@ -295,6 +305,24 @@ export type SponsorsQueryResult = Array<{
   imageUrl: string | null;
 }>;
 
+// Source: ./src/lib/queries/streaming-hro-query.ts
+// Variable: streamingHeroQuery
+// Query: *[_type == "heroToggle"][0]{      _id,      useStreamingHero,      streamingChannel->{        _id,        platform,        name,        "logo": logo.asset->url,        streamUrl,        embedUrl,        isActive,        order         }    }
+export type StreamingHeroQueryResult = {
+  _id: string;
+  useStreamingHero: boolean | null;
+  streamingChannel: {
+    _id: string;
+    platform: string | null;
+    name: string | null;
+    logo: string | null;
+    streamUrl: string | null;
+    embedUrl: string | null;
+    isActive: boolean | null;
+    order: number | null;
+  } | null;
+} | null;
+
 // Source: ./src/lib/queries/updateQuery.ts
 // Variable: updatesQuery
 // Query: *[_type == "update"] | order(_createdAt desc){      _id,      title,      "imageUrl": image.asset->url,      _createdAt    }
@@ -309,10 +337,11 @@ export type UpdatesQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"streamingChannel\"]{\n      platform,\n      logo{\n    asset->{\n      _id,\n      url\n    }\n  },\n      name,\n      _id,\n      streamUrl,\n      embedUrl,\n      isActive,\n      order     \n        }": ChannelsListQueryResult;
+    "*[_type == \"streamingChannel\"]{\n       _id,\n        platform,\n        name,\n        \"logo\": logo.asset->url,\n        streamUrl,\n        embedUrl,\n        isActive,\n        order   \n        }": ChannelsListQueryResult;
     "\n    *[_type == \"highlight\"] {\n      _id,\n      title,\n      url,\n      \"video\": video.asset->url,\n      \"thumbnail\": thumbnail.asset->url\n    }\n  ": STATIC_HIGHLIGHT_SHAPE_QUERYResult;
     "\n    *[_type == \"scheduleItem\"] | order(time asc) {\n      _id,\n      title,\n      time,\n      \"imageUrl\": image.asset->url,\n      live\n    }\n  ": ScheduleQueryResult;
     "*[_type == \"sponsor\"]{\n        _id,\n        title,\n        \"imageUrl\": image.asset->url\n      }": SponsorsQueryResult;
+    "\n    *[_type == \"heroToggle\"][0]{\n      _id,\n      useStreamingHero,\n      streamingChannel->{\n        _id,\n        platform,\n        name,\n        \"logo\": logo.asset->url,\n        streamUrl,\n        embedUrl,\n        isActive,\n        order   \n      }\n    }\n  ": StreamingHeroQueryResult;
     "\n    *[_type == \"update\"] | order(_createdAt desc){\n      _id,\n      title,\n      \"imageUrl\": image.asset->url,\n      _createdAt\n    }\n  ": UpdatesQueryResult;
   }
 }
