@@ -25,7 +25,7 @@ export const ScheduleCard = ({ event }: ScheduleCardProps) => {
       <div className="flex justify-between items-center text-white text-2xl backdrop-blur-lg h-full w-full px-[18px] ">
         <span>{event.title}</span>
 
-        {!event.live ? <span>{time}</span> : <LiveTag />}
+        {!event.live ? <span>{/* time*/}</span> : <LiveTag />}
       </div>
     </div>
   );
