@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ChatMessage {
+  id        String   @id
+  username  String
+  message   String
+  createdAt DateTime @default(now())
+  streamId  String
+  ChatRoom  ChatRoom @relation(fields: [streamId], references: [streamId])
+}
+
+model ChatRoom {
+  id          String        @id
+  streamId    String        @unique
+  createdAt   DateTime      @default(now())
+  ChatMessage ChatMessage[]
+}
+
+model Enquiry {
+  id           Int    @id @default(autoincrement())
+  name         String
+  email        String
+  date         String
+  time         String
+  phone        String
+  socialHandle String
+  reason       String
+}

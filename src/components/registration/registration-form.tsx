@@ -53,14 +53,32 @@ export const RegistrationForm = () => {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const apiData = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        socialHandle: values.socialHandle,
+        date: values.day,
+        time: values.time,
+        reason: values.reason,
+      };
+      const [registerResponse, enquiryResponse] = await Promise.all([
+        fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiData),
+        }),
+        fetch("/api/enquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiData),
+        }),
+      ]);
 
-      if (!response.ok) throw new Error("Failed to register");
-      await response.json();
+      if (!registerResponse.ok) throw new Error("Failed to register");
+      if (!enquiryResponse.ok) throw new Error("Failed to submit enquiry");
+
+      await Promise.all([registerResponse.json(), enquiryResponse.json()]);
 
       setSubmitMessage({
         type: "success",
@@ -244,8 +262,7 @@ export const RegistrationForm = () => {
               submitMessage.type === "success"
                 ? "bg-green-100 text-green-800"
                 : "bg-red-100 text-red-800"
-            }`}
-          >
+            }`}>
             {submitMessage.text}
           </div>
         )}
