@@ -13,6 +13,7 @@ import menuBg from "./menu-bg.webp";
 import pluginHeroLogo from "./plugin-hero-logo.png";
 import rebirthHeroLogo from "./rebirth-hero-logo.png";
 import kalysHouseHeroLogo from "./kalys-house-hero-logo.png";
+import collaborateModalPattern from "./collaborate-modal-background-img.webp";
 
 export {
   logo,
@@ -30,4 +31,5 @@ export {
   pluginHeroLogo,
   rebirthHeroLogo,
   kalysHouseHeroLogo,
+  collaborateModalPattern,
 };
