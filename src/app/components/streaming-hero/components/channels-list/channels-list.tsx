@@ -5,10 +5,15 @@ import { ChannelsListCard } from "./channel-list-card";
 
 type Props = {
   channels: ChannelsListQueryResult;
+  selectedChannelId: string | null;
   onSelectChannel: (channel: ChannelsListQueryResult[0]) => void;
 };
 
-export const ChannelsList = ({ channels, onSelectChannel }: Props) => {
+export const ChannelsList = ({
+  channels,
+  selectedChannelId,
+  onSelectChannel,
+}: Props) => {
   const sorted = [...channels].sort(
     (a, b) => (a.order ?? 999) - (b.order ?? 999)
   );
@@ -19,6 +24,7 @@ export const ChannelsList = ({ channels, onSelectChannel }: Props) => {
         <ChannelsListCard
           key={channel._id}
           channel={channel}
+          isSelected={selectedChannelId === channel._id}
           onSelect={onSelectChannel}
         />
       ))}
