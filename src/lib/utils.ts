@@ -22,3 +22,7 @@ export const generateEventSlots = () => {
 
   return slots;
 };
+
+export const collaboratePurpose = () => {
+  return ["Partnership", "Enquiry", "Sponsorship"];
+};
