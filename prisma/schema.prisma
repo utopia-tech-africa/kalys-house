@@ -24,7 +24,7 @@ model ChatRoom {
 }
 
 model Enquiry {
-  id           Int    @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   name         String
   email        String
   date         String
@@ -32,4 +32,5 @@ model Enquiry {
   phone        String
   socialHandle String
   reason       String
+  createdAt    DateTime @default(now())
 }

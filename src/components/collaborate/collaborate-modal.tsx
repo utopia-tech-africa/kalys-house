@@ -52,7 +52,7 @@ export const CollaborateModal = ({
 
       {/* modal box */}
       <div
-        className={`relative mt-12 w-full max-w-[660px] bg-transparent rounded-xl shadow-2xl px-6 py-8 z-50 transition-all duration-300 ${
+        className={`relative mt-9 md:mt-12 w-full max-w-[660px] bg-transparent rounded-xl shadow-2xl px-6 py-8 z-50 transition-all duration-300 ${
           isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
         }`}
       >

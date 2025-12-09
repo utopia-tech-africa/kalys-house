@@ -1,9 +1,4 @@
-import {
-  FaFacebook,
-  FaInstagram,
-  FaXTwitter,
-  FaYoutube,
-} from "react-icons/fa6";
+import { FaDiscord, FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 export const SocialLinks = () => {
   return (
@@ -38,7 +33,7 @@ export const SocialLinks = () => {
         rel="noreferrer"
         className="rounded p-3 border border-seconday-500"
       >
-        <FaFacebook className="text-white " />
+        <FaDiscord className="text-white " />
       </a>
     </div>
   );
