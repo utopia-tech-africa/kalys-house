@@ -38,14 +38,7 @@ export const Collaborate = () => {
           {/* button */}
           <div
             onClick={handleOpenCollaborate}
-            className="
-          absolute 
-          left-1/2 -translate-x-1/2 
-          z-20
-          top-[94%]      /* mobile position */
-          md:top-[92%]   /* tablet */
-          lg:top-[88%]   /* desktop */
-        "
+            className="absolute left-1/2 -translate-x-1/2 z-20 top-[94%] md:top-[92%] lg:top-[88%]"
           >
             <CollaborateButton />
           </div>

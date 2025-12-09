@@ -21,7 +21,7 @@ export const VideoPlayer = ({ embedUrl }: Props) => {
       height="100%"
       width="100%"
       allowFullScreen
-      className="rounded-lg overflow-hidden w-full h-full"
+      className="sm:rounded-lg overflow-hidden w-full h-full"
     />
   );
 };

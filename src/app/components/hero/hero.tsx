@@ -9,16 +9,21 @@ export const Hero = () => {
   const [loaderDone, setLoaderDone] = useState(false);
 
   useEffect(() => {
+    const html = document.documentElement;
+
     if (!loaderDone) {
       // Disable scroll
+      html.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
       // Re-enable scroll
+      html.style.overflow = "";
       document.body.style.overflow = "";
     }
 
     // Cleanup (in case component unmounts)
     return () => {
+      html.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, [loaderDone]);

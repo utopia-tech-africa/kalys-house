@@ -16,7 +16,7 @@ export const ChannelsListCard = ({ channel, isSelected, onSelect }: Props) => {
     <button
       onClick={() => onSelect(channel)}
       className={`
-        flex items-center gap-2 px-4 py-2 rounded transition cursor-pointer
+        flex items-center gap-2 px-4 py-2 rounded transition cursor-pointer min-w-fit 
         ${isSelected ? "bg-white/30 ring-2 ring-white" : "bg-white/10 hover:bg-white/20"}
       `}
     >
