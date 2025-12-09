@@ -764,6 +764,13 @@
         },
         "optional": true
       },
+      "isExternal": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
       "order": {
         "type": "objectAttribute",
         "value": {

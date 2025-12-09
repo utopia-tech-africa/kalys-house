@@ -16,6 +16,7 @@ export const fetchStreamingHero = async () => {
         streamUrl,
         embedUrl,
         isActive,
+        isExternal,
         order   
       }
     }

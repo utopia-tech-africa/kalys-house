@@ -19,7 +19,7 @@ export const ChannelsList = ({
   );
 
   return (
-    <div className="flex gap-1 p-1 sm:gap-4 items-center justify-start sm:justify-center md:justify-start overflow-scroll">
+    <div className="flex gap-1 p-1 sm:gap-4 items-center justify-start sm:justify-center md:justify-start overflow-x-scroll no-scrollbar">
       {sorted.map((channel) => (
         <ChannelsListCard
           key={channel._id}
