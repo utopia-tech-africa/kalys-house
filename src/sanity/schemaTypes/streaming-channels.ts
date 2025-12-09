@@ -66,6 +66,14 @@ export default defineType({
     }),
 
     defineField({
+      name: "isExternal",
+      title: "(isExternal) Open in New Tab?",
+      type: "boolean",
+      description: "If true, the channel link will open in a new browser tab.",
+      initialValue: false,
+    }),
+
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",

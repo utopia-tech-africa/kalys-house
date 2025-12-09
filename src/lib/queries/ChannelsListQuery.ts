@@ -3,7 +3,7 @@ import { defineQuery } from "next-sanity";
 
 export const fetchChannelsList = async () => {
   const channelsListQuery =
-    defineQuery(`*[_type == "streamingChannel" && isActive == true ]{
+    defineQuery(`*[_type == "streamingChannel" && isActive == true ]| order(order asc){
        _id,
         platform,
         name,
@@ -11,6 +11,7 @@ export const fetchChannelsList = async () => {
         streamUrl,
         embedUrl,
         isActive,
+        isExternal,
         order   
         }`);
   return client.fetch(channelsListQuery);
