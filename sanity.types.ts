@@ -153,6 +153,7 @@ export type StreamingChannel = {
   embedUrl?: string;
   description?: string;
   isActive?: boolean;
+  isExternal?: boolean;
   order?: number;
 };
 
@@ -262,7 +263,7 @@ export type AllSanitySchemaTypes = Highlight | SanityImageCrop | SanityImageHots
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/queries/ChannelsListQuery.ts
 // Variable: channelsListQuery
-// Query: *[_type == "streamingChannel"]{       _id,        platform,        name,        "logo": logo.asset->url,        streamUrl,        embedUrl,        isActive,        order           }
+// Query: *[_type == "streamingChannel" && isActive == true ]| order(order asc){       _id,        platform,        name,        "logo": logo.asset->url,        streamUrl,        embedUrl,        isActive,        isExternal,        order           }
 export type ChannelsListQueryResult = Array<{
   _id: string;
   platform: string | null;
@@ -271,6 +272,7 @@ export type ChannelsListQueryResult = Array<{
   streamUrl: string | null;
   embedUrl: string | null;
   isActive: boolean | null;
+  isExternal: boolean | null;
   order: number | null;
 }>;
 
@@ -307,7 +309,7 @@ export type SponsorsQueryResult = Array<{
 
 // Source: ./src/lib/queries/streaming-hro-query.ts
 // Variable: streamingHeroQuery
-// Query: *[_type == "heroToggle"][0]{      _id,      useStreamingHero,      streamingChannel->{        _id,        platform,        name,        "logo": logo.asset->url,        streamUrl,        embedUrl,        isActive,        order         }    }
+// Query: *[_type == "heroToggle"][0]{      _id,      useStreamingHero,      streamingChannel->{        _id,        platform,        name,        "logo": logo.asset->url,        streamUrl,        embedUrl,        isActive,        isExternal,        order         }    }
 export type StreamingHeroQueryResult = {
   _id: string;
   useStreamingHero: boolean | null;
@@ -319,6 +321,7 @@ export type StreamingHeroQueryResult = {
     streamUrl: string | null;
     embedUrl: string | null;
     isActive: boolean | null;
+    isExternal: boolean | null;
     order: number | null;
   } | null;
 } | null;
@@ -337,11 +340,11 @@ export type UpdatesQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"streamingChannel\"]{\n       _id,\n        platform,\n        name,\n        \"logo\": logo.asset->url,\n        streamUrl,\n        embedUrl,\n        isActive,\n        order   \n        }": ChannelsListQueryResult;
+    "*[_type == \"streamingChannel\" && isActive == true ]| order(order asc){\n       _id,\n        platform,\n        name,\n        \"logo\": logo.asset->url,\n        streamUrl,\n        embedUrl,\n        isActive,\n        isExternal,\n        order   \n        }": ChannelsListQueryResult;
     "\n    *[_type == \"highlight\"] {\n      _id,\n      title,\n      url,\n      \"video\": video.asset->url,\n      \"thumbnail\": thumbnail.asset->url\n    }\n  ": STATIC_HIGHLIGHT_SHAPE_QUERYResult;
     "\n    *[_type == \"scheduleItem\"] | order(time asc) {\n      _id,\n      title,\n      time,\n      \"imageUrl\": image.asset->url,\n      live\n    }\n  ": ScheduleQueryResult;
     "*[_type == \"sponsor\"]{\n        _id,\n        title,\n        \"imageUrl\": image.asset->url\n      }": SponsorsQueryResult;
-    "\n    *[_type == \"heroToggle\"][0]{\n      _id,\n      useStreamingHero,\n      streamingChannel->{\n        _id,\n        platform,\n        name,\n        \"logo\": logo.asset->url,\n        streamUrl,\n        embedUrl,\n        isActive,\n        order   \n      }\n    }\n  ": StreamingHeroQueryResult;
+    "\n    *[_type == \"heroToggle\"][0]{\n      _id,\n      useStreamingHero,\n      streamingChannel->{\n        _id,\n        platform,\n        name,\n        \"logo\": logo.asset->url,\n        streamUrl,\n        embedUrl,\n        isActive,\n        isExternal,\n        order   \n      }\n    }\n  ": StreamingHeroQueryResult;
     "\n    *[_type == \"update\"] | order(_createdAt desc){\n      _id,\n      title,\n      \"imageUrl\": image.asset->url,\n      _createdAt\n    }\n  ": UpdatesQueryResult;
   }
 }
