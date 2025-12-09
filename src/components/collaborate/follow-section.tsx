@@ -6,6 +6,7 @@ export const FollowSection = () => {
       <p className="text-[18px] md:text-[26px]  leading-[0.8] not-italic text-secondary-100  text-right">
         FOLLOW ON
       </p>
+
       <Follow />
     </div>
   );
