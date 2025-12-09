@@ -6,9 +6,12 @@ import { Input } from "@/components/ui/input";
 import { FaPaperPlane } from "react-icons/fa6";
 import { io, Socket } from "socket.io-client";
 import axios from "axios";
-import dayjs from "dayjs";
 
-interface Message {
+import { ErrorModal } from "./components/error-modal";
+import { UsernameModal } from "./components/username-model";
+import { MessageBubble } from "./components/message-bubble";
+
+export interface Message {
   id?: string;
   username: string;
   message: string;
@@ -18,94 +21,6 @@ interface Message {
 }
 
 const STREAM_ID = "main-stream"; // hardcoded stream ID
-
-// ---------------- MessageBubble Component ---------------- //
-const MessageBubble = ({
-  msg,
-  currentUser,
-}: {
-  msg: Message;
-  currentUser: string | null;
-}) => {
-  const isCurrentUser = msg.username === currentUser && !msg.system;
-  const isSystemMessage = msg.system;
-
-  return (
-    <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`}>
-      <div
-        className={`max-w-[70%] p-2 rounded-lg wrap-break-word ${
-          isSystemMessage
-            ? " text-white italic text-sm text-center w-full border-b"
-            : isCurrentUser
-              ? "bg-blue-600 text-white"
-              : "bg-gray-800 text-white"
-        }`}
-      >
-        {!isSystemMessage && (
-          <div className="text-xs opacity-70 mb-1">
-            {msg.username} •{" "}
-            {dayjs(msg.createdAt || msg.timestamp).format("HH:mm")}
-          </div>
-        )}
-        <div>{msg.message}</div>
-      </div>
-    </div>
-  );
-};
-
-// ---------------- UsernameModal Component ---------------- //
-const UsernameModal = ({
-  setUsername,
-  closeModal,
-}: {
-  setUsername: (username: string) => void;
-  closeModal: () => void;
-}) => {
-  const [tempName, setTempName] = useState("");
-  return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-gray-900 p-6 rounded shadow-lg w-[300px] flex flex-col gap-4">
-        <h2 className="text-white text-lg font-bold">Enter Username</h2>
-        <Input
-          type="text"
-          placeholder="Your name"
-          value={tempName}
-          onChange={(e) => setTempName(e.target.value)}
-        />
-        <Button
-          onClick={() => {
-            if (!tempName.trim()) return;
-            setUsername(tempName.trim());
-            closeModal();
-          }}
-        >
-          Join Chat
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-// ---------------- ErrorModal Component ---------------- //
-const ErrorModal = ({
-  message,
-  closeModal,
-}: {
-  message: string;
-  closeModal: () => void;
-}) => (
-  <div
-    className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-    onClick={closeModal}
-  >
-    <div className="bg-red-700 p-4 rounded shadow-lg text-white w-[300px] text-center">
-      <p>{message}</p>
-      <Button className="mt-2" onClick={closeModal}>
-        Close
-      </Button>
-    </div>
-  </div>
-);
 
 // ---------------- LiveChat Component ---------------- //
 export const LiveChat = () => {
@@ -182,7 +97,13 @@ export const LiveChat = () => {
 
   // ---------------- Auto-scroll ---------------- //
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = messagesEndRef.current?.parentElement;
+    if (!container) return;
+
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: "smooth",
+    });
   }, [messages]);
 
   // ---------------- Send message ---------------- //
@@ -214,7 +135,10 @@ export const LiveChat = () => {
           STREAM CHAT
         </h3>
 
-        <div className="flex-1 overflow-y-auto mt-2 pr-1 space-y-2 font-poppins text-sm">
+        <div
+          className="flex-1 overflow-y-auto mt-2 pr-1 space-y-2 font-poppins text-sm"
+          style={{ scrollBehavior: "smooth" }}
+        >
           {messages.map((msg, idx) => (
             <MessageBubble key={idx} msg={msg} currentUser={username} />
           ))}
@@ -224,7 +148,7 @@ export const LiveChat = () => {
         <div className="flex border-t border-[#B4B4B44D] pt-2 gap-2">
           <Input
             type="text"
-            className="w-full p-3 rounded bg-white/40 text-white outline-none"
+            className="w-full p-3 rounded bg-white/40 text-white outline-none font-poppins text-sm"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyDown={handleKeyDown}

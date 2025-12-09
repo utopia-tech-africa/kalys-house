@@ -39,7 +39,7 @@ export const StreamingHero = ({ defaultChannel }: StreamingHeroProps) => {
   // if (channels.length === 0) return null;
 
   return (
-    <section className="relative w-full min-h-screen flex flex-col mb-8 overflow-hidden">
+    <section className="relative w-full min-h-screen flex flex-col mb-8">
       <video
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
         src="/vid/streaming-hero-bg-video.mp4"
@@ -51,14 +51,14 @@ export const StreamingHero = ({ defaultChannel }: StreamingHeroProps) => {
 
       <div className="absolute bottom-0 left-0 w-full h-[30%] bg-linear-to-t from-black via-black/80 to-transparent z-10" />
 
-      <div className="relative z-20 flex flex-col lg:flex-row w-full px-6 lg:px-16 gap-6 mt-[93px] lg:h-[440px]">
-        <div className="w-full lg:w-[70%]">
+      <div className="relative z-20 flex flex-col lg:flex-row w-full sm:px-6 lg:px-16 gap-1 sm:gap-6 mt-[60px] sm:mt-[93px] lg:h-[440px]">
+        <div className="mx-auto w-full lg:w-[70%]  min-h-[250px] aspect-video">
           <VideoPlayer embedUrl={selectedEmbedUrl || undefined} />
         </div>
 
         {/* Channels - Mobile */}
-        <div className="block md:hidden py-6 px-6">
-          <h2 className="text-3xl text-center font-bold text-white mb-4">
+        <div className="block md:hidden px-1 mb-2">
+          <h2 className="text-lg text-center font-medium text-white mb-1 tracking-wide">
             Channels
           </h2>
 
