@@ -75,7 +75,7 @@ const AttendeesDashboard = () => {
 
   if (loading)
     return (
-      <div className="flex flex-col justify-center items-center p-10 text-lg font-medium">
+      <div className="flex flex-col text-primary-light justify-center items-center p-40 text-lg font-medium">
         Loading attendees...
       </div>
     );
