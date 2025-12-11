@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { RegistrationForm } from "./registration-form";
 import { backdropImg2 } from "@/assets/img";
-import { ComponentLayout } from "../component-layout";
 
 const Registration = () => {
   return (
