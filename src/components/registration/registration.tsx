@@ -1,37 +1,31 @@
 import Image from "next/image";
 import { RegistrationForm } from "./registration-form";
 import { backdropImg2 } from "@/assets/img";
+import { ComponentLayout } from "../component-layout";
 
 const Registration = () => {
   return (
-    <section
-      className="p-1 md:p-3 mb-30 relative w-full overflow-hidden"
-      id="registration-form"
-    >
-      <Image
-        src={backdropImg2}
-        alt="kalys house backdrop"
-        fill
-        className="absolute inset-0 object-cover  -z-20"
-      />
+    <ComponentLayout>
+      <section
+        className="mb-30 -mt-20 md:mt-0 relative w-full overflow-hidden"
+        id="registration-form"
+      >
+        <Image
+          src={backdropImg2}
+          alt="kalys house backdrop"
+          fill
+          className="absolute inset-0 object-cover  -z-20"
+        />
 
-      <div className="absolute md:inset-0 md:bg-black/10 -z-10" />
+        <div className="absolute md:inset-0 md:bg-black/10 -z-10" />
 
-      <div className="flex flex-col items-center justify-center ">
-        <h1 className="text-primary-light text-[40px]">
-          BE A PART OF THE EXPERIENCE
-        </h1>
-        <p className="text-sm text-white font-poppins mb-6">
-          Join KalyJay in the house and immerse yourself in the epic journey.
-        </p>
-      </div>
-
-      <div className="relative z-10 inset-0 flex items-center justify-center lg:justify-end px-6 md:px-16">
-        <div className="w-full h-full max-w-[522px]">
-          <RegistrationForm />
+        <div className="relative z-10 inset-0 flex items-center justify-center lg:justify-end px-6 md:px-16">
+          <div className="w-full h-full max-w-[522px]">
+            <RegistrationForm />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </ComponentLayout>
   );
 };
 

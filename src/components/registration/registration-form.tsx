@@ -100,6 +100,14 @@ export const RegistrationForm = () => {
 
   return (
     <div className=" text-white">
+      <div className="flex flex-col items-center justify-center ">
+        <h1 className="text-primary-light text-[40px]">
+          BE A PART OF THE EXPERIENCE
+        </h1>
+        <p className="text-sm text-white font-poppins mb-6">
+          Join KalyJay in the house and immerse yourself in the epic journey.
+        </p>
+      </div>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         {/* Full Name */}
         <div>
@@ -245,7 +253,7 @@ export const RegistrationForm = () => {
           </label>
           <Textarea
             {...form.register("reason")}
-            className="w-full mt-2 min-h-[110px] rounded-xl p-4 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-400 border border-neutral-700 resize-none backdrop-blur-[20px]"
+            className="w-full mt-2 rounded-xl p-4 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-400 border border-neutral-700 resize-none backdrop-blur-[20px]"
             disabled={isSubmitting}
           />
           {form.formState.errors.reason && (
@@ -262,7 +270,8 @@ export const RegistrationForm = () => {
               submitMessage.type === "success"
                 ? "bg-green-100 text-green-800"
                 : "bg-red-100 text-red-800"
-            }`}>
+            }`}
+          >
             {submitMessage.text}
           </div>
         )}
