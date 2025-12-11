@@ -13,6 +13,7 @@ model ChatMessage {
   message   String
   createdAt DateTime @default(now())
   streamId  String
+  userId    String
   ChatRoom  ChatRoom @relation(fields: [streamId], references: [streamId])
 }
 
@@ -33,4 +34,14 @@ model Enquiry {
   socialHandle String
   reason       String
   createdAt    DateTime @default(now())
+}
+
+model Collaborate {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String
+  purpose   String
+  more      String
+  createdAt DateTime @default(now())
 }

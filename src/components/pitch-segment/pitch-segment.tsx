@@ -7,7 +7,7 @@ export const PitchSegment = () => {
   return (
     <ComponentLayout>
       <section
-        id="registration-form"
+        id="pitch-segment"
         className="relative w-full flex flex-col md:flex-row overflow-hidden"
       >
         {/* LEFT SIDE – IMAGE */}

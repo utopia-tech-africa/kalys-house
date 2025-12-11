@@ -51,31 +51,45 @@ export const CollaborateForm = ({ onSuccess }: CollaborateFormProps) => {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
-      const response = await fetch("/api/collaborate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const apiData = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        purpose: values.purpose,
+        more: values.more,
+      };
 
-      if (!response.ok) throw new Error("Failed to send message");
-      await response.json();
+      const [collaborateResponse, requestResponse] = await Promise.all([
+        fetch("/api/collaborate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiData),
+        }),
+        fetch("/api/request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiData),
+        }),
+      ]);
+
+      if (!collaborateResponse.ok)
+        throw new Error("Failed to submit collaboration form");
+      if (!requestResponse.ok)
+        throw new Error("Failed to submit request for collaboration form");
+
+      await Promise.all([collaborateResponse.json(), requestResponse.json()]);
 
       setSubmitMessage({
         type: "success",
-        text: "We've received your message! Check your email.",
+        text: "Collaboration form submitted successfully! Check your email",
       });
-
-      setTimeout(() => {
-        if (onSuccess) onSuccess();
-      }, 4000);
-
       form.reset();
-    } catch (err) {
+    } catch (error) {
       setSubmitMessage({
         type: "error",
         text:
-          err instanceof Error
-            ? err.message
+          error instanceof Error
+            ? error.message
             : "An error occurred. Please try again.",
       });
     } finally {
