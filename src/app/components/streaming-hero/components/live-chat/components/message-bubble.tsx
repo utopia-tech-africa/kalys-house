@@ -3,12 +3,12 @@ import { Message } from "../live-chat";
 
 export const MessageBubble = ({
   msg,
-  currentUser,
+  currentUserId,
 }: {
   msg: Message;
-  currentUser: string | null;
+  currentUserId: string | null;
 }) => {
-  const isCurrentUser = msg.username === currentUser && !msg.system;
+  const isCurrentUser = msg.userId === currentUserId && !msg.system;
   const isSystemMessage = msg.system;
 
   return (
