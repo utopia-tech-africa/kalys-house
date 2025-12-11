@@ -9,7 +9,7 @@ export const Follow = () => {
           target="_blank"
           rel="noreferrer"
           key={item.social}
-          className=" leading-[0.6] not-italic text-secondary-100 text-[18px] md:text-[26px] text-right min-w-full relative shrink-0 w-min"
+          className=" leading-[0.6] not-italic text-secondary-100 text-[18px] md:text-[26px] text-right min-w-full relative shrink-0 w-min transform transition-transform duration-300 hover:-translate-x-full"
         >
           {item.social}
         </a>
