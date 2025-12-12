@@ -8,7 +8,7 @@ export const PitchSegment = () => {
     <ComponentLayout>
       <section
         id="pitch-segment"
-        className="relative w-full flex flex-col md:flex-row overflow-hidden"
+        className="relative w-full flex flex-col md:flex-row overflow-hidden scroll-mt-24 md:scroll-mt-32"
       >
         {/* LEFT SIDE – IMAGE */}
         <div className="relative w-full h-[350px] md:h-auto md:basis-[60%] lg:basis-[70%]">
