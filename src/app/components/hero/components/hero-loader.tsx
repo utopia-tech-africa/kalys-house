@@ -9,6 +9,7 @@ import {
   rebirthHeroLogo,
 } from "@/assets/img";
 import { X } from "lucide-react";
+import { XIcon } from "@/assets/svg/x-icon";
 
 interface HeroLoaderProps {
   onComplete?: () => void; // Callback when loader is gone
@@ -62,7 +63,7 @@ export const HeroLoader: React.FC<HeroLoaderProps> = ({ onComplete }) => {
               className="object-contain h-full "
             />
           </div>
-          <X size={50} strokeWidth={3} className="text-black" />
+          <XIcon />
           <div className="h-[65px]">
             <Image
               src={rebirthHeroLogo}

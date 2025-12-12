@@ -57,7 +57,7 @@ export const Highlights = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10 w-full place-items-center">
             {highlights.map((highlight, index) => (
               <div
-                key={highlight._id}
+                key={index}
                 className={`${
                   index % 2 === 1 ? "lg:translate-y-[89px]" : ""
                 } w-full`}
