@@ -13,7 +13,7 @@ export const PitchSegment = () => {
         className="relative flex flex-col lg:flex-row overflow-hidden scroll-mt-24 md:scroll-mt-32"
       >
         {/* LEFT SIDE – IMAGE */}
-        <div className="relative overflow-hidden w-full min-h-[300px] md:min-h-[560px] lg:min-h-[600px] rounded-lg">
+        <div className="relative overflow-hidden w-full min-h-[300px] md:min-h-[500px] rounded-lg">
           <Image
             src={pitchSegmentImg}
             alt="Pitch Segment Section Backdrop"
