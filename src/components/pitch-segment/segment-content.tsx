@@ -4,7 +4,9 @@ import { Button } from "../ui/button";
 export const SegmentContent = () => {
   return (
     <div className="flex flex-col gap-4">
-      <Heading className="text-nowrap">GOT THE NEXT BIG THING?</Heading>
+      <Heading className="text-nowrap text-[#FF01E1]">
+        GOT THE NEXT BIG THING?
+      </Heading>
 
       <p className="font-poppins leading-[130%] tracking-[1px] text-sm ">
         The panel is set. The lights are ready. The only thing missing is YOU.
@@ -19,7 +21,10 @@ export const SegmentContent = () => {
         target="_blank"
         rel="noreferrer"
       >
-        <Button className="mt-5 py-2.5 hover:bg-priamry-deep">
+        <Button
+          className="mt-5 py-2.5 bg-[linear-gradient(90deg,#890079_0%,#8A38F5_100%)]
+"
+        >
           GET PLUGGED IN
         </Button>
       </a>
