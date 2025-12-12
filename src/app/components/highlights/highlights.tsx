@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { fetchHighlights } from "@/lib/queries/highlightQuery";
 
 export const Highlights = () => {
-  const [highlights, setHighlights] = useState<any[]>([]);
+  const [highlights, setHighlights] = useState<any[]>([1, 2, 3, 4, 5, 6, 7, 8]);
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0); // <-- total document count
 
