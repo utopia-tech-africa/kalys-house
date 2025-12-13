@@ -59,7 +59,7 @@ export const Hero = () => {
         playsInline
         onClick={handleVideoClick}
         className="absolute top-0 left-0 w-full h-full object-cover"
-        src="/vid/main-hero-bg-video.mp4"
+        src="https://res.cloudinary.com/ddbns4bkw/video/upload/v1765626999/72_HOURS_WITH_KALY_1_MIN_TRAILER_i1fgxt.mp4"
       />
 
       {/* Optional Dark Overlay */}
