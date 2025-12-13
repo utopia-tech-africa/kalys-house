@@ -22,7 +22,7 @@ export const SegmentContent = () => {
         rel="noreferrer"
       >
         <Button
-          className="mt-5 py-2.5 bg-[linear-gradient(90deg,#890079_0%,#8A38F5_100%)]
+          className="mt-5 border-none py-2.5 bg-[linear-gradient(90deg,#890079_0%,#8A38F5_100%)]
 "
         >
           GET PLUGGED IN
