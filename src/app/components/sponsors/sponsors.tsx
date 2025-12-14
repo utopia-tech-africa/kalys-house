@@ -8,7 +8,7 @@ export const Sponsors = async () => {
   return (
     <div className="space-y-4">
       <Heading className="text-center">Sponsors & Partners</Heading>
-      <MovingCards cards={sponsors} />;
+      <MovingCards cards={sponsors} />
     </div>
   );
 };
