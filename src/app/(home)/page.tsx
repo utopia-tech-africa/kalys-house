@@ -25,7 +25,7 @@ const Home = async () => {
         <Hero />
       )}
 
-      <EventBrief />
+      {/* <EventBrief /> */}
       <Sponsors />
       <WhatDeyGoOn />
       <Schedule />
