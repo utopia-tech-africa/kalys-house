@@ -11,6 +11,7 @@ export async function POST(request: Request) {
       phone: string;
       date: string;
       time: string;
+      location: string;
     }[] = await request.json();
 
     if (!Array.isArray(guests) || guests.length === 0) {

@@ -15,6 +15,7 @@ type BulkEmailTemplateProps = {
   phone: string;
   date: string;
   time: string;
+  location: string;
 };
 
 export const BulkEmailTemplate = ({
@@ -22,6 +23,7 @@ export const BulkEmailTemplate = ({
   phone,
   date,
   time,
+  location,
 }: BulkEmailTemplateProps) => (
   <Html>
     <Body style={{ margin: 0, padding: 0, backgroundColor: "#f8f9fa" }}>
@@ -63,7 +65,7 @@ export const BulkEmailTemplate = ({
               margin: "28px 0",
             }}
           >
-            YOU'RE PLUGGED IN!
+            YOU&apos;RE PLUGGED IN!
           </Text>
 
           <Text
@@ -103,6 +105,19 @@ export const BulkEmailTemplate = ({
             Date: {date}
             <br />
             Time Slot: {time}
+            <br />
+            Location: {location}
+          </Text>
+
+          <Text
+            style={{
+              fontSize: "15px",
+              marginBottom: "16px",
+              lineHeight: "1.6",
+            }}
+          >
+            Please note that this confirmation is valid only for you and for the
+            date and time listed above.
           </Text>
 
           <Text
