@@ -9,6 +9,7 @@ import { Collaborate, PitchSegment } from "@/components";
 import { Highlights } from "../components/highlights/highlights";
 import { fetchStreamingHero } from "@/lib/queries/streaming-hro-query";
 import { StreamingHero } from "../components/streaming-hero/streaming-hero";
+import { HeroTimer } from "../components/hero-timer/hero-timer";
 
 const Home = async () => {
   // Fetch the toggle document
@@ -16,14 +17,15 @@ const Home = async () => {
 
   return (
     <section className="flex flex-col gap-y-30">
+      <HeroTimer />
       {/* Conditionally render hero */}
-      {heroToggle?.useStreamingHero ? (
+      {/* {heroToggle?.useStreamingHero ? (
         <StreamingHero
           defaultChannel={heroToggle?.streamingChannel || null || undefined}
         />
       ) : (
         <Hero />
-      )}
+      )} */}
 
       {/* <EventBrief /> */}
       <Sponsors />
