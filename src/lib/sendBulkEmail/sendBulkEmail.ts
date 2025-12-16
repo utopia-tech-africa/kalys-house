@@ -14,6 +14,7 @@ export async function sendBulkEmails(
     phone: string;
     date: string;
     time: string;
+    location: string;
   }[]
 ) {
   const results = [];
@@ -31,6 +32,7 @@ export async function sendBulkEmails(
           phone: guest.phone,
           date: guest.date,
           time: guest.time,
+          location: guest.location,
         }),
       });
 
