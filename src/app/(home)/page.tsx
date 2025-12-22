@@ -17,14 +17,14 @@ const Home = async () => {
 
   return (
     <section className="flex flex-col gap-y-30">
-      {/* <Hero /> */}
+      {/* <HeroTimer /> */}
       {/* Conditionally render hero */}
       {heroToggle?.useStreamingHero ? (
         <StreamingHero
           defaultChannel={heroToggle?.streamingChannel || null || undefined}
         />
       ) : (
-        <HeroTimer />
+        <Hero />
       )}
 
       {/* <EventBrief /> */}
