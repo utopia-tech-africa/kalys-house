@@ -1,28 +1,76 @@
+"use client";
+
+import { kalyjayImg, kalyjayImgMobile } from "@/assets/img";
 import Image from "next/image";
-import { kalyjayImg } from "@/assets/img";
 import { About } from "./about";
-import { Follow } from "./follow";
-import { ComponentLayout } from "../component-layout";
+import { CollaborateButton } from "./collaborate-button";
+import { FollowSection } from "./follow-section";
+import { useState } from "react";
+import { CollaborateModal } from "./collaborate-modal";
 
 export const Collaborate = () => {
+  const [isCollaborateModalOpen, setIsCollaborateModalOpen] = useState(false);
+
+  const handleOpenCollaborate = () => setIsCollaborateModalOpen(true);
+
   return (
-    <div className="mb-30 w-full overflow-hidden relative flex justify-center items-center">
-      {/* I Replaced the svg with the wepg file */}
-      <Image
-        src={kalyjayImg}
-        alt="KalyJay"
-        className="w-full h-auto object-cover"
-        priority
+    <>
+      <section
+        id="collaborate"
+        className="relative -mt-30 mb-20 w-full min-h-screen overflow-hidden bg-black"
+      >
+        <div className="relative w-full h-full min-h-[703px]">
+          {/* desktop */}
+          <Image
+            src={kalyjayImg}
+            alt=""
+            className="hidden lg:block absolute inset-0 w-full h-full object-cover"
+          />
+
+          {/* mobile */}
+
+          <Image
+            src={kalyjayImgMobile}
+            alt=""
+            className="block lg:hidden absolute inset-0 w-full h-full object-cover"
+          />
+
+          {/* button */}
+          <div
+            onClick={handleOpenCollaborate}
+            className="absolute left-1/2 -translate-x-1/2 z-20 top-[94%] md:top-[92%] lg:top-[88%]"
+          >
+            <CollaborateButton />
+          </div>
+        </div>
+
+        {/* other content */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          {/* mobile */}
+          <div className="md:hidden flex justify-between px-4 pt-[31px]">
+            <div className="w-[161px]">
+              <About />
+            </div>
+            <div className="w-[88px]">
+              <FollowSection />
+            </div>
+          </div>
+
+          {/* desktop */}
+          <div className="hidden md:block">
+            <div className="absolute left-20 top-80">
+              <About />
+            </div>
+            <div className="absolute right-20 lg:right-[193px] top-80">
+              <FollowSection />
+            </div>
+          </div>
+        </div>
+      </section>
+      <CollaborateModal
+        isOpen={isCollaborateModalOpen}
+        onClose={() => setIsCollaborateModalOpen(false)}
       />
-
-      <ComponentLayout className="absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-between z-20">
-        <About />
-        <Follow />
-      </ComponentLayout>
-
-      <div className="flex flex-col items-center justify-center absolute top-[93%] left-1/2 transform -translate-x-1/2 rounded-xl -translate-y-1/2 z-20 bg-[linear-gradient(90deg,#FF3401_0%,#991F01_100%)] py-3 px-10">
-        <button className="text-[32px]">COLLABORATE WITH ME</button>
-      </div>
-    </div>
+    </>
   );
 };
