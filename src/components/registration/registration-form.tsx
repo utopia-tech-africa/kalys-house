@@ -1,19 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import "react-phone-number-input/style.css";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "../ui/textarea";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { generateEventDates, generateEventSlots } from "@/lib/utils";
+
+// Utility functions for generating dates and time slots
 
 const formSchema = z.object({
   name: z.string().min(2, "Full name is required"),
   email: z.string().email("Invalid email address"),
   socialHandle: z.string().min(2, "Invalid social handle"),
   phone: z.string().min(6, "Enter a valid phone number"),
+  day: z.string().min(1, "Please select a day"),
+  time: z.string().min(1, "Please select a time"),
   reason: z.string().optional(),
 });
 
@@ -29,8 +41,10 @@ export const RegistrationForm = () => {
     defaultValues: {
       name: "",
       email: "",
-      socialHandle: "",
       phone: "",
+      socialHandle: "",
+      day: "",
+      time: "",
       reason: "",
     },
   });
@@ -39,14 +53,32 @@ export const RegistrationForm = () => {
     setIsSubmitting(true);
     setSubmitMessage(null);
     try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const apiData = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        socialHandle: values.socialHandle,
+        date: values.day,
+        time: values.time,
+        reason: values.reason,
+      };
+      const [registerResponse, enquiryResponse] = await Promise.all([
+        fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiData),
+        }),
+        fetch("/api/enquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiData),
+        }),
+      ]);
 
-      if (!response.ok) throw new Error("Failed to register");
-      await response.json();
+      if (!registerResponse.ok) throw new Error("Failed to register");
+      if (!enquiryResponse.ok) throw new Error("Failed to submit enquiry");
+
+      await Promise.all([registerResponse.json(), enquiryResponse.json()]);
 
       setSubmitMessage({
         type: "success",
@@ -68,17 +100,16 @@ export const RegistrationForm = () => {
 
   return (
     <div className=" text-white">
-      <div className="flex flex-col items-center justify-center">
-        <h2 className="text-[#ff5a24] tracking-[1px] text-center md:text-left font-bold text-3xl mb-2">
+      <div className="flex flex-col items-center justify-center ">
+        <h1 className="text-primary-light text-[40px]">
           BE A PART OF THE EXPERIENCE
-        </h2>
-        <p className="font-poppins text-center text-sm mb-6 text-neutral-300">
-          Join KalyJay in the house and immerse yourself in <br />
-          the epic journey.
+        </h1>
+        <p className="text-sm text-white font-poppins mb-6">
+          Join KalyJay in the house and immerse yourself in the epic journey.
         </p>
       </div>
-
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {/* Full Name */}
         <div>
           <label className="block text-sm text-neutral-200">
             Full name <span className="text-red-500">*</span>
@@ -115,6 +146,70 @@ export const RegistrationForm = () => {
           )}
         </div>
 
+        {/* Day and Time Side by Side */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {/* Day */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-200">
+              Select Day <span className="text-red-500">*</span>
+            </label>
+            <Controller
+              control={form.control}
+              name="day"
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} disabled={isSubmitting}>
+                  <SelectTrigger className="h-9 w-full rounded-lg p-4 border border-[#D9DBDB33] bg-white/20 text-base backdrop-blur-[20px]">
+                    <SelectValue placeholder="Select a day" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {generateEventDates().map((day) => (
+                      <SelectItem key={day} value={day}>
+                        {day}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {form.formState.errors.day && (
+              <p className="text-sm text-red-500 mt-1">
+                {String(form.formState.errors.day?.message)}
+              </p>
+            )}
+          </div>
+
+          {/* Time */}
+          <div>
+            <label className="block text-sm font-medium text-neutral-200">
+              Select Time <span className="text-red-500">*</span>
+            </label>
+            <Controller
+              control={form.control}
+              name="time"
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} disabled={isSubmitting}>
+                  <SelectTrigger className="h-9 w-full rounded-lg p-4 border border-[#D9DBDB33] bg-white/20 text-base backdrop-blur-[20px]">
+                    <SelectValue placeholder="Select a time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {generateEventSlots().map((slot) => (
+                      <SelectItem key={slot} value={slot}>
+                        {slot}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {form.formState.errors.time && (
+              <p className="text-sm text-red-500 mt-1">
+                {String(form.formState.errors.time?.message)}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Social Handle + Phone */}
         <div className="grid items-center grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className="block text-sm font-medium text-neutral-200">
@@ -137,16 +232,12 @@ export const RegistrationForm = () => {
             <label className="block text-sm font-medium text-neutral-200">
               Phone <span className="text-red-500">*</span>
             </label>
-
-            <div className="block text-sm font-medium text-neutral-200">
-              <Input
-                placeholder="+233 2222 222 22"
-                {...form.register("phone")}
-                className="backdrop-blur-[20px]"
-                disabled={isSubmitting}
-              />
-            </div>
-
+            <Input
+              placeholder="+233 2222 222 22"
+              {...form.register("phone")}
+              className="backdrop-blur-[20px]"
+              disabled={isSubmitting}
+            />
             {form.formState.errors.phone && (
               <p className="text-sm text-red-500 mt-1">
                 {String(form.formState.errors.phone?.message)}
@@ -155,13 +246,14 @@ export const RegistrationForm = () => {
           </div>
         </div>
 
+        {/* Reason */}
         <div>
           <label className="block text-sm font-medium text-neutral-200">
             Reason for joining
           </label>
           <Textarea
             {...form.register("reason")}
-            className="w-full mt-2 min-h-[110px] rounded-xl p-4 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-400 border border-neutral-700 resize-none backdrop-blur-[20px]"
+            className="w-full mt-2 rounded-xl p-4 placeholder:text-sm placeholder:font-medium placeholder:text-neutral-400 border border-neutral-700 resize-none backdrop-blur-[20px]"
             disabled={isSubmitting}
           />
           {form.formState.errors.reason && (
@@ -171,6 +263,7 @@ export const RegistrationForm = () => {
           )}
         </div>
 
+        {/* Submit Button */}
         {submitMessage && (
           <div
             className={`p-3 rounded-md text-sm font-medium ${
@@ -183,7 +276,7 @@ export const RegistrationForm = () => {
           </div>
         )}
 
-        <Button type="submit" disabled={isSubmitting} className="">
+        <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
       </form>

@@ -8,6 +8,26 @@ export const Hero = () => {
   const [muted, setMuted] = useState(true); // start muted to ensure autoplay
   const [loaderDone, setLoaderDone] = useState(false);
 
+  useEffect(() => {
+    const html = document.documentElement;
+
+    if (!loaderDone) {
+      // Disable scroll
+      html.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      // Re-enable scroll
+      html.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+
+    // Cleanup (in case component unmounts)
+    return () => {
+      html.style.overflow = "";
+      document.body.style.overflow = "";
+    };
+  }, [loaderDone]);
+
   const handleVideoClick = () => {
     if (videoRef.current) {
       videoRef.current.muted = !muted;
@@ -39,7 +59,7 @@ export const Hero = () => {
         playsInline
         onClick={handleVideoClick}
         className="absolute top-0 left-0 w-full h-full object-cover"
-        src="https://res.cloudinary.com/dl02aq6nt/video/upload/v1764253050/hero-bg-video_xtwq5b.mp4"
+        src="https://res.cloudinary.com/dan9camhs/video/upload/v1787267834/72_HOURS_WITH_KALY_1_MIN_TRAILER_i1ag8l.mp4"
       />
 
       {/* Optional Dark Overlay */}
